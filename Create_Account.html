@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Layout_Logout.css">
+    <link rel="stylesheet" href="Create_Account.css">
+    <title>Create Account</title>
+</head>
+<body>
+    <div class="topic">
+        <div class="name">
+            <h1>CalsFood</h1>
+            <h4>เว็บไซต์คำนวนแคลลอรี่อาหารตามสั่งไทย</h4>
+        </div>
+        <img src="Image/BG-topic.webp">
+    </div>
+
+    <div class="menu-bar">
+        <div class="logo">
+            <img src="Image/logo.webp">
+            <h2>CalsFood</h2>
+        </div>
+
+        <a href="Home_Logout.html" class="button">Home</a>
+        <a href="Design_Logout.html" class="button">Design</a>
+        <a href="AI.html" class="button">AI</a>
+        <a href="Login.html" class="button">Inventory</a>
+    </div>
+
+    <div class="background">
+        <img src="https://images.pexels.com/photos/349609/pexels-photo-349609.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    </div>
+
+    <div class="create-account">
+        <div class="create-box">
+            <div class="design">
+                <div class="box">
+                    <div class="box1"></div>
+                    <div class="box2"></div>
+                    <div class="radius1"></div>
+                    <div class="radius2"></div>
+                </div>
+                <div class="box">
+                    <p>Create Account</p>
+                </div>
+                <div class="box">
+                    <div class="box3"></div>
+                    <div class="box4"></div>
+                    <div class="radius3"></div>
+                    <div class="radius4"></div>
+                </div>
+            </div>
+
+            <form action="Home_Login.html" class="form-create">
+                <div class="username">
+                    <label>Username</label>
+                    <div class="input-box">
+                        <input type="text" id="create-username" placeholder="Username" required>
+                    </div>
+                </div>
+
+                <div class="flex-container-row">
+                    <div class="flex-item">
+                        <label>Height (cm)</label>
+                        <div class="input-box">
+                            <input type="number" id="create-height" placeholder="Height" min="0" required>
+                        </div>
+                    </div>
+                    <div class="flex-item">
+                        <label>Weight (kg)</label>
+                        <div class="input-box">
+                            <input type="number" id="create-weight" placeholder="Weight" min="0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <label>Birthday</label>
+                        <div class="input-box">
+                            <input type="date" id="create-birthday" required>
+                        </div>
+                    </div>
+                    <div class="flex-item">
+                        <label>Gender</label>
+                        <div class="gender-selection">
+                            <div class="gender-option">
+                                <input type="radio" id="male" name="gender" value="male" required>
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="female" name="gender" value="female">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="email">
+                    <label>Email</label>
+                    <div class="input-box">
+                        <input type="email" id="create-email" placeholder="Email" required>
+                    </div>
+                </div>
+
+                <div class="password">
+                    <label>Password</label>
+                    <div class="input-box">
+                        <input type="password" id="create-password" placeholder="Password" required>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2767/2767146.png" id="togglePassword" class="toggle-password" alt="Show Password">
+                    </div>
+                </div>
+
+                <div class="password">
+                    <label>Confirm Password</label>
+                    <div class="input-box">
+                        <input type="password" id="create-confirm-password" placeholder="Confirm Password" required>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2767/2767146.png" id="toggleConfirmPassword" class="toggle-password" alt="Show Password">
+                    </div>
+                </div>
+
+                <button class="create-button" type="submit">Create Account</button>
+                <a href="Login.html" class="create-account-link">Already have an account?</a>
+            </form>      
+        </div>
+    </div>
+
+    <script src="Create_Account.js"></script>
+</body>
+</html>

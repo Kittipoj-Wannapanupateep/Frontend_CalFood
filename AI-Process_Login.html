@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Layout_Login.css">
+    <link rel="stylesheet" href="AI-Process_Login.css">
+    <title>AI-login</title>
+</head>
+
+<body>
+    <div class="topic">
+        <div class="name">
+            <h1>CalsFood</h1>
+            <h4>เว็บไซต์คำนวนแคลลอรี่อาหารตามสั่งไทย</h4>
+        </div>
+        <img src="Image/BG-topic.webp">
+    </div>
+
+    <div class="menu-bar">
+        <div class="logo">
+            <img src="Image/logo.webp">
+            <h2>CalsFood</h2>
+        </div>
+
+        <a href="Home_Login.html" class="button">Home</a>
+        <a href="Design_Login.html" class="button">Design</a>
+        <a href="AI_Login.html" class="button">AI</a>
+        <a href="Inventory_Login.html" class="button">Inventory</a>
+
+        <div class="account">
+            <img id="icon-profile" src="Image/icon-profile.png">
+            <p>UsakiB</p>
+            <img id="setting" src="Image/icon-Hamburger.png">
+        </div>
+    </div>
+
+    <div class="background">
+        <img src="https://images.pexels.com/photos/349609/pexels-photo-349609.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    </div>
+
+
+
+    <div class="content">
+        <div class="food-analyzer">
+            <h1>Food Analyzer</h1>
+            <div class="analyzer-box">
+                <div class="result-container">
+                    <div class="food-info">
+                        <h2>Menu: ข้าวผัดกะเพราไข่ดาว</h2>
+                        <div class="food-image">
+                            <img src="Image/ข้าวผัดกะเพรา.jpg" alt="Food Image">
+                        </div>
+                    </div>
+                    <div class="calories-info">
+                        <h3>วัตถุดิบ</h3>
+                        <div class="ingredient-list">
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">ข้าว</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">ไก่</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">กะเพรา</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">ไข่ดาว</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">น้ำมัน</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                            <div class="ingredient-item">
+                                <span class="ingredient-name">เครื่องปรุง</span>
+                                <div class="calorie-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <span class="calorie-value">800 cal</span>
+                            </div>
+                        </div>
+                        <div class="total-calories">
+                            <span>รวม</span>
+                            <span class="total-value">999 cal</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="btn-container">
+                    <input type="file" id="file-input" accept="image/*" style="display: none">
+                    <button class="upload-btn" onclick="document.getElementById('file-input').click()">อัพโหลดรูปภาพใหม่</button>
+
+                    <div class="btn-group">
+                        <button class="save-btn" onclick="handleSaveMenu()">บันทึกเมนู</button>
+                        <button class="edit-btn" onclick="handleEditIngredients()">แก้ไขวัตถุดิบ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Add modal dialog before closing body tag --><!-- Add modal dialog before closing body tag -->
+    <div id="saveModal" class="modal">
+        <div class="modal-content">
+            <h2>บันทึกอาหาร</h2>
+            <div class="modal-form">
+                <div class="form-group">
+                    <label>ชื่ออาหาร:</label>
+                    <p class="fixed-food-name">ข้าวผัดกะเพราไข่ดาว</p>
+                </div>
+                <div class="form-group">
+                    <label for="datetime">วันที่และเวลา:</label>
+                    <input type="datetime-local" id="datetime">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="confirmSave">บันทึก</button>
+                <button id="cancelSave">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add success modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">✓</div>
+            <h2>บันทึกข้อมูลสำเร็จ</h2>
+        </div>
+    </div>
+
+    <script src="AI-Process_Login.js"></script>
+    <script src="Layout_Login.js"></script>
+</body>
+</html>

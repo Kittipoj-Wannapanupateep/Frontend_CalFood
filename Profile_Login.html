@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Layout_Login.css">
+    <link rel="stylesheet" href="Profile_Login.css">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="topic">
+        <div class="name">
+            <h1>CalsFood</h1>
+            <h4>เว็บไซต์คำนวนแคลลอรี่อาหารตามสั่งไทย</h4>
+        </div>
+        <img src="Image/BG-topic.webp">
+    </div>
+
+    <div class="menu-bar">
+        <div class="logo">
+            <img src="Image/logo.webp">
+            <h2>CalsFood</h2>
+        </div>
+
+        <a href="Home_Login.html" class="button">Home</a>
+        <a href="Design_Login.html" class="button">Design</a>
+        <a href="AI_Login.html" class="button">AI</a>
+        <a href="Inventory_Login.html" class="button">Inventory</a>
+
+        <div class="account">
+            <img id="icon-profile" src="Image/icon-profile.png">
+            <p>UsakiB</p>
+            <img id="setting" src="Image/icon-Hamburger.png">
+        </div>
+    </div>
+
+    <div class="background">
+        <img src="https://images.pexels.com/photos/349609/pexels-photo-349609.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    </div>
+
+    <div class="profile">
+        <div class="profile-box">
+            <div class="design">
+                <div class="box">
+                    <div class="box1"></div>
+                    <div class="box2"></div>
+                    <div class="radius1"></div>
+                    <div class="radius2"></div>
+                </div>
+                <div class="box">
+                    <p>User Profile</p>
+                </div>
+                <div class="box">
+                    <div class="box3"></div>
+                    <div class="box4"></div>
+                    <div class="radius3"></div>
+                    <div class="radius4"></div>
+                </div>
+            </div>
+            <!-- Profile Image Upload Section -->
+            <div class="info-item">
+                <label>Profile Picture</label>
+                <div class="info-box profile-image-box">
+                    <div class="profile-image-container">
+                        <img src="Image/default.png" class="profile-image" alt="Default Profile">
+                        <div class="button-group edit-mode" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('profile_image').click()">
+                                Upload New Photo
+                            </button>
+                            <input type="file" name="profile_image" id="profile_image" accept="image/*">
+                            <button type="button" class="delete-image-btn" onclick="deleteProfileImage()">
+                                Delete Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <!-- Normal profile view -->
+                <div class="profile-view">
+                    <div class="info-item">
+                        <label>Username</label>
+                        <div class="info-box">
+                            <p class="display-value">UsakiB</p>
+                            <input type="text" value="UsakiB" class="edit-input" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <label>Height (cm)</label>
+                            <div class="info-box">
+                                <p class="display-value">175</p>
+                                <input type="number" value="175" class="edit-input" style="display: none;">
+                            </div>
+                            <div class="error-message-profile" id="height-error"></div>
+                        </div>
+                        <div class="flex-item">
+                            <label>Weight (kg)</label>
+                            <div class="info-box">
+                                <p class="display-value">70</p>
+                                <input type="number" value="70" class="edit-input" style="display: none;">
+                            </div>
+                            <div class="error-message-profile" id="weight-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <label>Birthday</label>
+                            <div class="info-box">
+                                <p>01/01/1990</p>
+                            </div>
+                        </div>
+                        <div class="flex-item">
+                            <label>Gender</label>
+                            <div class="info-box">
+                                <p class="display-value">Male</p>
+                                <select class="edit-input" style="display: none;">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Email</label>
+                        <div class="info-box">
+                            <p>usakib@example.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password change form -->
+                <div class="password-change-form" style="display: none;">
+                    <div class="info-item">
+                        <label>Current Password</label>
+                        <div class="info-box">
+                            <input type="password" class="password-input" placeholder="Enter current password">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2767/2767146.png" class="toggle-password" alt="Show Password">
+                        </div>
+                        <div class="error-message" id="current-password-error"></div>
+                    </div>
+
+                    <div class="info-item">
+                        <label>New Password</label>
+                        <div class="info-box">
+                            <input type="password" class="password-input" placeholder="Enter new password">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2767/2767146.png" class="toggle-password" alt="Show Password">
+                        </div>
+                        <div class="error-message" id="new-password-error"></div>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Confirm New Password</label>
+                        <div class="info-box">
+                            <input type="password" class="password-input" placeholder="Confirm new password">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2767/2767146.png" class="toggle-password" alt="Show Password">
+                        </div>
+                        <div class="error-message" id="confirm-password-error"></div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="edit-button">Edit Profile</button>
+                    <button class="save-button" style="display: none;">Save</button>
+                    <button class="cancel-button" style="display: none;">Cancel</button>
+                    <button class="change-password-button">Change Password</button>
+                    <button class="save-password-button" style="display: none;">Save Password</button>
+                    <button class="cancel-password-button" style="display: none;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="profile-update-popup">
+        <div class="popup">
+            <div class="popup-icon"></div>
+            <h2>สำเร็จ!</h2>
+            <p>แก้ไขโปรไฟล์เรียบร้อยแล้ว</p>
+            <button class="popup-button">ตกลง</button>
+        </div>
+    </div>
+
+    <script src="Layout_Login.js"></script>
+    <script src="Profile_Login.js"></script>
+</body>
+</html> 
