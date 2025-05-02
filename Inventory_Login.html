@@ -120,6 +120,24 @@
                                 <button class="view-details-btn">View Details</button>
                             </div>
                         </div>
+                        <div class="menu-card" data-created="2024-03-21">
+                            <div class="menu-card-header">
+                                <div class="menu-info">
+                                    <h3 class="menu-name">ข้าวไข่กุ้ง</h3>
+                                    <p class="menu-date">Created: 2024-04-23</p>
+                                </div>
+                                <button class="delete-menu-btn">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                                </button>
+                            </div>
+                            <div class="menu-card-footer">
+                                <div class="calorie-info">
+                                    <span class="calorie-value">450</span>
+                                    <span class="calorie-unit">kcal</span>
+                                </div>
+                                <button class="view-details-btn">View Details</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,7 +215,76 @@
                 <div class="daily-meal-card">
                     <div class="daily-meal-header">
                         <div class="date-info">
-                            <span class="date">วันที่ 21 มีนาคม 2024</span>
+                            <span class="date">วันที่ 27 มีนาคม 2024</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="edit-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/992/992664.png" alt="Edit">Edit
+                            </button>
+                            <button class="delete-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">Delete
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="meal-section breakfast">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Breakfast">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเช้า</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meal-section lunch">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3274/3274099.png" alt="Lunch">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อกลางวัน</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meal-section dinner">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/12009/12009846.png" alt="Dinner">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเย็น</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-calories">
+                        <span>แคลอรี่ทั้งหมด:</span>
+                        <span class="total-calorie-value">1,350</span>
+                        <span class="calorie-unit">kcal</span>
+                    </div>
+                </div>
+                <div class="daily-meal-card">
+                    <div class="daily-meal-header">
+                        <div class="date-info">
+                            <span class="date">วันที่ 24 มีนาคม 2024</span>
                         </div>
                         <div class="action-buttons">
                             <button class="edit-btn">
@@ -361,6 +448,111 @@
             <h2>ลบเมนูเสร็จสิ้น</h2>
             <div class="modal-buttons">
                 <button id="closeSuccess" class="confirm-btn">ตกลง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Daily Meal Modal -->
+    <div id="editDailyMealModal" class="modal">
+        <div class="modal-content edit-modal">
+            <div class="modal-header">
+                <h2>แก้ไขมื้ออาหาร</h2>
+            </div>
+            <div class="modal-body">
+                <div class="date-edit">
+                    <label for="editDate">วันที่:</label>
+                    <input type="date" id="editDate">
+                </div>
+                <div class="meal-sections">
+                    <div class="meal-section-edit breakfast">
+                        <div class="meal-content-row">
+                            <span class="meal-type-label">มื้อเช้า</span>
+                            <div class="icon-selector">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Breakfast" class="meal-icon">
+                                <div class="icon-options">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Breakfast 1" data-icon="breakfast1">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3480/3480824.png" alt="Breakfast 2" data-icon="breakfast2">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3480/3480825.png" alt="Breakfast 3" data-icon="breakfast3">
+                                </div>
+                            </div>
+                            <div class="meal-box">
+                                <span class="meal-name">ข้าวผัดกุ้ง</span>
+                                <span class="meal-calories">450 kcal</span>
+                            </div>
+                            <button class="select-new-meal-btn">เลือกเมนูใหม่</button>
+                            <button class="delete-meal-btn" style="display:none">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="meal-section-edit lunch">
+                        <div class="meal-content-row">
+                            <span class="meal-type-label">มื้อกลางวัน</span>
+                            <div class="icon-selector">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3274/3274099.png" alt="Lunch" class="meal-icon">
+                                <div class="icon-options">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3274/3274099.png" alt="Lunch 1" data-icon="lunch1">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3274/3274100.png" alt="Lunch 2" data-icon="lunch2">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3274/3274101.png" alt="Lunch 3" data-icon="lunch3">
+                                </div>
+                            </div>
+                            <div class="meal-box">
+                                <span class="meal-name">ข้าวผัดกุ้ง</span>
+                                <span class="meal-calories">450 kcal</span>
+                            </div>
+                            <button class="select-new-meal-btn">เลือกเมนูใหม่</button>
+                            <button class="delete-meal-btn" style="display:none">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="meal-section-edit dinner">
+                        <div class="meal-content-row">
+                            <span class="meal-type-label">มื้อเย็น</span>
+                            <div class="icon-selector">
+                                <img src="https://cdn-icons-png.flaticon.com/512/12009/12009846.png" alt="Dinner" class="meal-icon">
+                                <div class="icon-options">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/12009/12009846.png" alt="Dinner 1" data-icon="dinner1">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/12009/12009847.png" alt="Dinner 2" data-icon="dinner2">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/12009/12009848.png" alt="Dinner 3" data-icon="dinner3">
+                                </div>
+                            </div>
+                            <div class="meal-box">
+                                <span class="meal-name">ข้าวผัดกุ้ง</span>
+                                <span class="meal-calories">450 kcal</span>
+                            </div>
+                            <button class="select-new-meal-btn">เลือกเมนูใหม่</button>
+                            <button class="delete-meal-btn" style="display:none">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-calories-edit">
+                    <span>แคลอรี่ทั้งหมด:</span>
+                    <span class="total-calorie-value">1,350</span>
+                    <span class="calorie-unit">kcal</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="saveEdit" class="confirm-btn">บันทึก</button>
+                <button id="cancelEdit" class="cancel-btn">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Select Menu Modal -->
+    <div id="selectMenuModal" class="modal">
+        <div class="modal-content select-menu-modal">
+            <h2>เลือกเมนูอาหาร</h2>
+            <div class="menu-list">
+                <!-- Menu items will be dynamically added here -->
+            </div>
+            <div class="modal-buttons">
+                <button id="confirmMenu" class="confirm-btn">ยืนยัน</button>
+                <button id="cancelMenu" class="cancel-btn">ยกเลิก</button>
             </div>
         </div>
     </div>
