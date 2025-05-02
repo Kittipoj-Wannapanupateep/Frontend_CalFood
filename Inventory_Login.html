@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Layout_Login.css">
     <link rel="stylesheet" href="Inventory_Login.css">
-    <title>Design</title>
+    <title>My Menu Management</title>
 </head>
 <body>
     <div class="topic">
@@ -41,74 +41,40 @@
     <div class="content">
         <button id="sidebar-toggle" class="sidebar-toggle-btn">◀</button>
         <div class="left-content">
-            <div class="design">
-                <div class="ingredients">
-                    <div class="ingredient-category">
+            <div class="menu-categories">
+                <div class="category-list">
+                    <div class="category-item">
                         <div class="category-header">
-                            <span class="toggle-btn">▶</span>  
-                            <span>คาร์โบไฮเดรต</span>
-                        </div>
-                        <div class="ingredient-items">
-                             
+                            <img src="https://cdn-icons-png.flaticon.com/512/18907/18907118.png" alt="My Menu" class="category-icon">
+                            <span>My Menu</span>
                         </div>
                     </div>
                 
-                    <div class="ingredient-category">
+                    <div class="category-item">
                         <div class="category-header">
-                            <span class="toggle-btn">▶</span>
-                            <span>โปรตีน</span>
+                            <img src="   https://cdn-icons-png.flaticon.com/512/4257/4257212.png " alt="Daily Meal" class="category-icon">
+                            <span>Daily Meal</span>
                         </div>
-                        <div class="ingredient-items"></div>
-                    </div>
-                
-                    <div class="ingredient-category">
-                        <div class="category-header">
-                            <span class="toggle-btn">▶</span>
-                            <span>ไขมัน</span>
-                        </div>
-                        <div class="ingredient-items"></div>
                     </div>
 
-                    <div class="ingredient-category">
+                    <div class="category-item">
                         <div class="category-header">
-                            <span class="toggle-btn">▶</span>
-                            <span>ผัก</span>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3023/3023682.png" alt="My Healthy" class="category-icon">
+                            <span>My Healthy</span>
                         </div>
-                        <div class="ingredient-items"></div>
                     </div>
-
-                    <div class="ingredient-category">
-                        <div class="category-header">
-                            <span class="toggle-btn">▶</span>
-                            <span>ธัญพืช</span>
-                        </div>
-                        <div class="ingredient-items"></div>
-                    </div>
-        
-                    <div class="buttons">
-                        <button class="reset-button">⭯ Reset</button>
-                        <button class="auto-menu-button">จัดเมนูอัตโนมัติ</button>
-                    </div>
-                    <div class="buttons">
-                        <button class="save-button">บันทึก</button>
-                    </div>
-                </div>
-                <div class="spacer"></div>
-                <div class="sum_calorie">
-                    <p>ผลรวม: 2,000 Calorie</p>
                 </div>
             </div>
         </div>
 
         <div class="right-content">
             <div class="fixed-header">
-                <div class="type">
-                    <h1>คาร์โบไฮเดรต</h1>   
+                <div class="section-title">
+                    <h1></h1>   
                 </div>
 
-                <div class="type-ingredient">
-                    <div class="buttons-container">
-                        
+                <div class="filter-section">
+                    <div class="filter-buttons">
                     </div>
             
                     <div class="search-bar">
@@ -117,143 +83,258 @@
                     </div>
                 </div>
             </div>
-
+            <div class="add-button-container">
+                <a href="Design_Login.html">
+                <button class="add-menu-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4315/4315609.png" alt="Add">
+                    <span>เพิ่มเมนู</span>
+                </button>
+                </a>
+            </div>
+            <div class="add-daily-meal-container">
+                <a href="Design_Login.html">
+                <button class="add-daily-meal-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4315/4315609.png" alt="Add">
+                    <span>เพิ่มเมนูต่อวัน</span>
+                </button>
+                </a>
+            </div>
             <div class="scrollable-content">
-                <div class="total-ingredients">
-                    <div class="sum-ingredients">
-                        <!-- คาร์โบไฮเดรต - แป้ง -->
-                        <div class="box" data-category="แป้ง" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/แป้งสาลี.jpg">
-                            <h1>แป้งสาลี</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 364 แคลอรี่</p>
-                            <button>+Add</button>
+                <div class="menu-container">
+                    <div class="menu-grid">
+                        <div class="menu-card" data-created="2024-03-21">
+                            <div class="menu-card-header">
+                                <div class="menu-info">
+                                    <h3 class="menu-name">ข้าวผัดกุ้ง</h3>
+                                    <p class="menu-date">Created: 2024-03-21</p>
+                                </div>
+                                <button class="delete-menu-btn">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                                </button>
+                            </div>
+                            <div class="menu-card-footer">
+                                <div class="calorie-info">
+                                    <span class="calorie-value">450</span>
+                                    <span class="calorie-unit">kcal</span>
+                                </div>
+                                <button class="view-details-btn">View Details</button>
+                            </div>
                         </div>
-                        <div class="box" data-category="แป้ง" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/แป้งข้าวเจ้า.jpg">
-                            <h1>แป้งข้าวเจ้า</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 366 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- คาร์โบไฮเดรต - เส้น -->
-                        <div class="box" data-category="เส้น" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/เส้นหมี่เหลือง.jpg">
-                            <h1>บะหมี่เหลือง</h1>
-                            <p>ปริมาณ: 1 ก้อน</p>
-                            <p>ประมาณ: 200 แคลอรี่</p>
-                            <button>+Add</button>
+            <div class="daily-meal-content">
+                <div class="daily-meal-card">
+                    <div class="daily-meal-header">
+                        <div class="date-info">
+                            <span class="date">วันที่ 21 มีนาคม 2024</span>
                         </div>
-                        <div class="box" data-category="เส้น" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/เส้นเล็ก.jpg">
-                            <h1>เส้นเล็ก</h1>
-                            <p>ปริมาณ: 1 ก้อน</p>
-                            <p>ประมาณ: 100 แคลอรี่</p>
-                            <button>+Add</button>
+                        <div class="action-buttons">
+                            <button class="edit-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/992/992664.png" alt="Edit">Edit
+                            </button>
+                            <button class="delete-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">Delete
+                            </button>
                         </div>
-                        <div class="box" data-category="เส้น" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/เส้นใหญ่.jpg">
-                            <h1>เส้นใหญ่</h1>
-                            <p>ปริมาณ: 1 ก้อน</p>
-                            <p>ประมาณ: 150 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
 
-                        <!-- คาร์โบไฮเดรต - ข้าว -->
-                        <div class="box" data-category="ข้าว" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/ข้าวสวย.jpg">
-                            <h1>ข้าวสวย</h1>
-                            <p>ปริมาณ: 1 ทัพพี</p>
-                            <p>ประมาณ: 80 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="meal-section breakfast">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Breakfast">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเช้า</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
                         </div>
-                        <div class="box" data-category="ข้าว" data-main-category="คาร์โบไฮเดรต">
-                            <img src="Image/ข้าวกล้อง.jpg">
-                            <h1>ข้าวกล้อง</h1>
-                            <p>ปริมาณ: 1 ทัพพี</p>
-                            <p>ประมาณ: 85 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
 
-                        <!-- โปรตีน - เนื้อสัตว์ -->
-                        <div class="box" data-category="เนื้อสัตว์" data-main-category="โปรตีน">
-                            <img src="Image/เนื้อหมู.jpg">
-                            <h1>เนื้อหมู</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 242 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="meal-section lunch">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3274/3274099.png" alt="Lunch">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อกลางวัน</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
                         </div>
-                        <div class="box" data-category="เนื้อสัตว์" data-main-category="โปรตีน">
-                            <img src="Image/เนื้อไก่.jpg">
-                            <h1>เนื้อไก่</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 239 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
 
-                        <!-- โปรตีน - ผลิตภัณฑ์จากนม -->
-                        <div class="box" data-category="ผลิตภัณฑ์จากนม" data-main-category="โปรตีน">
-                            <img src="Image/นมสด.jpg">
-                            <h1>นมสด</h1>
-                            <p>ปริมาณ: 1 แก้ว</p>
-                            <p>ประมาณ: 120 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="meal-section dinner">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/12009/12009846.png" alt="Dinner">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเย็น</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
                         </div>
-                        <div class="box" data-category="ผลิตภัณฑ์จากนม" data-main-category="โปรตีน">
-                            <img src="Image/โยเกิร์ต.jpg">
-                            <h1>โยเกิร์ต</h1>
-                            <p>ปริมาณ: 1 ถ้วย</p>
-                            <p>ประมาณ: 100 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
 
-                        <!-- ไขมัน -->
-                        <div class="box" data-category="น้ำมัน" data-main-category="ไขมัน">
-                            <img src="Image/น้ำมันพืช.jpg">
-                            <h1>น้ำมันพืช</h1>
-                            <p>ปริมาณ: 1 ช้อนโต๊ะ</p>
-                            <p>ประมาณ: 120 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="total-calories">
+                        <span>แคลอรี่ทั้งหมด:</span>
+                        <span class="total-calorie-value">1,350</span>
+                        <span class="calorie-unit">kcal</span>
+                    </div>
+                </div>
+                <div class="daily-meal-card">
+                    <div class="daily-meal-header">
+                        <div class="date-info">
+                            <span class="date">วันที่ 21 มีนาคม 2024</span>
                         </div>
-                        <div class="box" data-category="เนย" data-main-category="ไขมัน">
-                            <img src="Image/เนย.jpg">
-                            <h1>เนย</h1>
-                            <p>ปริมาณ: 1 ช้อนโต๊ะ</p>
-                            <p>ประมาณ: 102 แคลอรี่</p>
-                            <button>+Add</button>
+                        <div class="action-buttons">
+                            <button class="edit-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/992/992664.png" alt="Edit">Edit
+                            </button>
+                            <button class="delete-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">Delete
+                            </button>
                         </div>
+                    </div>
 
-                        <!-- ผัก -->
-                        <div class="box" data-category="ผักใบเขียว" data-main-category="ผัก">
-                            <img src="Image/ผักกาด.jpg">
-                            <h1>ผักกาด</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 15 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="meal-section breakfast">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Breakfast">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเช้า</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
                         </div>
-                        <div class="box" data-category="ผักหัว" data-main-category="ผัก">
-                            <img src="Image/แครอท.jpg">
-                            <h1>แครอท</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 41 แคลอรี่</p>
-                            <button>+Add</button>
-                        </div>
+                    </div>
 
-                        <!-- ธัญพืช -->
-                        <div class="box" data-category="ถั่ว" data-main-category="ธัญพืช">
-                            <img src="Image/ถั่วลิสง.jpg">
-                            <h1>ถั่วลิสง</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 567 แคลอรี่</p>
-                            <button>+Add</button>
+                    <div class="meal-section lunch">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3274/3274099.png" alt="Lunch">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อกลางวัน</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
                         </div>
-                        <div class="box" data-category="เมล็ดพืช" data-main-category="ธัญพืช">
-                            <img src="Image/เมล็ดทานตะวัน.jpg">
-                            <h1>เมล็ดทานตะวัน</h1>
-                            <p>ปริมาณ: 100 กรัม</p>
-                            <p>ประมาณ: 584 แคลอรี่</p>
-                            <button>+Add</button>
+                    </div>
+
+                    <div class="meal-section dinner">
+                        <div class="meal-info">
+                            <div class="meal-image">
+                                <img src="https://cdn-icons-png.flaticon.com/512/12009/12009846.png" alt="Dinner">
+                            </div>
+                            <div class="meal-details">
+                                <h3 class="meal-name">ข้าวผัดกุ้ง</h3>
+                                <span class="meal-type">มื้อเย็น</span>
+                            </div>
+                            <div class="meal-calories">
+                                <span class="calorie-value">450</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-calories">
+                        <span>แคลอรี่ทั้งหมด:</span>
+                        <span class="total-calorie-value">1,350</span>
+                        <span class="calorie-unit">kcal</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="healthy-content">
+                <div class="bmi-card">
+                    <div class="bmi-header">
+                        <h2>ค่าดัชนีมวลกาย (BMI)</h2>
+                    </div>
+                    <div class="bmi-info">
+                        <div class="bmi-value">
+                            <span class="value">22.5</span>
+                            <span class="unit">kg/m²</span>
+                        </div>
+                        <div class="bmi-status">
+                            <span class="status normal">น้ำหนักปกติ</span>
+                        </div>
+                    </div>
+                    <div class="bmi-range">
+                        <div class="range-bar">
+                            <div class="range underweight">ผอม</div>
+                            <div class="range normal">ปกติ</div>
+                            <div class="range overweight">ท้วม</div>
+                            <div class="range obese">อ้วน</div>
+                        </div>
+                        <div class="range-values">
+                            <span>18.5</span>
+                            <span>25</span>
+                            <span>30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tdee-card">
+                    <div class="tdee-header">
+                        <h2>พลังงานที่ควรได้รับต่อวัน (TDEE)</h2>
+                    </div>
+                    <div class="activity-level">
+                        <h3>ระดับการออกกำลังกาย</h3>
+                        <div class="activity-options">
+                            <button class="activity-btn" data-multiplier="1.2">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Sedentary">
+                                <span>ไม่ออกกำลังกาย</span>
+                            </button>
+                            <button class="activity-btn" data-multiplier="1.375">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Light">
+                                <span>ออกกำลังกายน้อย</span>
+                            </button>
+                            <button class="activity-btn" data-multiplier="1.55">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Moderate">
+                                <span>ออกกำลังกายปานกลาง</span>
+                            </button>
+                            <button class="activity-btn" data-multiplier="1.725">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Active">
+                                <span>ออกกำลังกายมาก</span>
+                            </button>
+                            <button class="activity-btn" data-multiplier="1.9">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Very Active">
+                                <span>ออกกำลังกายมากที่สุด</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tdee-result">
+                        <div class="calorie-range">
+                            <div class="range-item">
+                                <span class="label">พลังงานขั้นต่ำ:</span>
+                                <span class="value">1,800</span>
+                                <span class="unit">kcal</span>
+                            </div>
+                            <div class="range-item">
+                                <span class="label">พลังงานสูงสุด:</span>
+                                <span class="value">2,200</span>
+                                <span class="unit">kcal</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,44 +342,25 @@
         </div>
     </div>
 
-    <!-- Add modal dialog before closing body tag -->
-    <div id="saveModal" class="modal">
+    <!-- Delete confirmation modal -->
+    <div id="deleteConfirmModal" class="modal">
         <div class="modal-content">
-            <h2>บันทึกอาหาร</h2>
-            <div class="modal-form">
-                <div class="form-group">
-                    <label for="foodName">ชื่ออาหาร:</label>
-                    <input type="text" id="foodName" placeholder="กรอกชื่ออาหาร">
-                    <span class="error-message" id="foodNameError">กรุณากรอกชื่ออาหาร</span>
-                </div>
-                <div class="form-group">
-                    <label for="datetime">วันที่และเวลา:</label>
-                    <input type="datetime-local" id="datetime">
-                </div>
-            </div>
+            <h2>ยืนยันการลบเมนู</h2>
+            <p>คุณต้องการลบเมนูนี้ใช่หรือไม่?</p>
             <div class="modal-buttons">
-                <button id="confirmSave">บันทึก</button>
-                <button id="cancelSave">ยกเลิก</button>
+                <button id="confirmDelete" class="delete-btn">ยืนยัน</button>
+                <button id="cancelDelete" class="cancel-btn">ยกเลิก</button>
             </div>
         </div>
     </div>
 
-    <!-- Add success modal -->
-    <div id="successModal" class="modal">
+    <!-- Success modal -->
+    <div id="deleteSuccessModal" class="modal">
         <div class="modal-content success-modal">
             <div class="success-icon">✓</div>
-            <h2>บันทึกข้อมูลสำเร็จ</h2>
-        </div>
-    </div>
-
-    <!-- Add reset confirmation modal -->
-    <div id="resetConfirmModal" class="modal">
-        <div class="modal-content">
-            <h2>ยืนยันการรีเซ็ต</h2>
-            <p>คุณต้องการรีเซ็ตรายการอาหารทั้งหมดใช่หรือไม่?</p>
+            <h2>ลบเมนูเสร็จสิ้น</h2>
             <div class="modal-buttons">
-                <button id="confirmReset">ยืนยัน</button>
-                <button id="cancelReset">ยกเลิก</button>
+                <button id="closeSuccess" class="confirm-btn">ตกลง</button>
             </div>
         </div>
     </div>

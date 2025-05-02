@@ -1,4 +1,4 @@
-/******************************************* Detail of Design *******************************************/
+/******************************************* Layout Styles *******************************************/
 .content {
     width: 100%;
     display: flex;
@@ -78,7 +78,8 @@
     width: 100%;
 }
 
-.design {
+/******************************************* Menu Categories *******************************************/
+.menu-categories {
     height: 100%;
     width: 100%;
     background-color: #ececec;
@@ -86,124 +87,9 @@
     flex-direction: column;
 }
 
-.food {
-    width: 240px;
-    height: 155px;
-    background-color: #A5E135;
-    box-shadow: inset 0 0 200px #39592D;
-}
-
-.input-food {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding-top: 10px;
-}
-.icon-timefood {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    width: 55px;
-    height: 55px;
-    background-color: #ffdf27;
-    border: solid 4px #ffffff;
-    border-radius: 100px;
-}
-
-.icon-timefood img {
-    max-width: 45px;
-    height: auto;
-}
-
-.name-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.namefood {
-    width: 140px;
-    padding: 4px;
-    border: 3px solid #A5E135;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.detail-food {
-    margin-left: 18px;
-    margin-top: 8px;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 5px;
-}
-
-.date {
-    margin-left: 25px;
-    padding: 2px;
-    font-size: 14px;
-}
-
-.input-date {
-    padding: 2px;
-    font-size: 14px;
-}
-
-select {
-    padding: 3px;
-    font-size: 14px;
-    width: 120px;
-}
-
-input:focus, select:focus {
-    border-color: #faff87;
-    box-shadow: 0 0 5px #faff87;
-}
-
-label {
-    color: white;
-    font-size: 14px;
-    display: block;
-    text-align: left;
-}
-
-.quantity-input {
-    width: 25px;
-    height: 20px;
-    padding: 0 2px;
-    border: 1px solid #e7e7e7;
-    border-radius: 3px;
-    font-size: 12px;
-    text-align: center;
-    background-color: white;
-}
-
-.quantity-input::-webkit-inner-spin-button,
-.quantity-input::-webkit-outer-spin-button {
-    opacity: 1;
-    height: 15px;
-    width: 12px;
-}
-
-/******************************************* Design Ingredients *******************************************/
-
-
-.ingredients {
+.category-list {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 50px;
-}
-
-.spacer {
-    height: 50px;
-    background-color: #f5f5f5;
-}
-
-.design .ingredients {
     background: #f5f5f5;
     width: 100%;
     max-height: none;
@@ -214,11 +100,11 @@ label {
     flex-direction: column;
 }
 
-.design .ingredient-category {
+.category-item {
     border-bottom: 1px solid #e0e0e0;
 }
 
-.design .category-header {
+.category-header {
     display: flex;
     align-items: center;
     padding: 12px 15px;
@@ -228,145 +114,39 @@ label {
     border: 1px solid #e7e7e7;
 }
 
-.design .category-header.active {
+.category-header.active {
     background: #D7F998;
     color: white;
 }
 
-.design .category-header:hover {
+.category-header:hover {
     background: #A5E135;
 }
 
-.design .category-header span {
+.category-header span {
     color: #333;
+    margin-left: 10px;
 }
 
-.design .toggle-btn {
-    margin-right: 10px;
-    color: #666;
-    font-size: 12px;
+.category-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
 }
 
-.design .ingredient-items {
-    padding: 8px;
-    background: #f5f5f5;
-}
-
-.design .ingredient-item {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 8px 12px;
-    margin: 5px 0;
-    background: #ffffff;
-    border-radius: 5px;
-    border: 1px solid #e7e7e7;
-    transition: transform 0.2s;
-}
-
-.design .ingredient-item:hover {
-    transform: translateX(2px);
-}
-
-.design .buttons {
-    padding: 10px 10px;
-    background: white;
-    border-top: 1px solid #e7e7e7;
-    border-left: 1px solid #e7e7e7;
-    border-right: 1px solid #e7e7e7;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.design .buttons:last-child {
-    border-radius: 0 0 5px 5px;
-    border-bottom: 1px solid #e7e7e7;
-}
-
-.design .reset-button, 
-.design .auto-menu-button {
-    padding: 8px 12px;
-    border: 1px solid #e7e7e7;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    flex: 1;
-    max-width: 120px;
-    text-align: center;
-}
-
-.design .reset-button:hover, 
-.design .auto-menu-button:hover {
-    color: white;
-    background: #000000;
-}
-
-.design .save-button {
-    width: 100%;
-    padding: 10px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.design .save-button:hover {
-    background: #45a049;
-}
-
-.design .add-ingredient {
-    text-align: right;
-    padding: 5px 8px;
-}
-
-.design .add-ingredient button {
-    color: #666;
-    background: none;
-    border: none;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: color 0.2s;
-}
-
-.design .add-ingredient button:hover {
-    color: #333;
-}
-
-.sum_calorie {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 280px;
-    background-color: #393939;
-    z-index: 1;
-}
-
-.sum_calorie p {
-    text-align: center;
-    margin: 0;
-    color: white;
-    font-size: 20px;
-    padding: 8px;
-}
-
-/******************************************* Total Ingredients *******************************************/
-.type {
+/******************************************* Menu Display *******************************************/
+.section-title {
     background-color: #EAFFC3;
     width: 100%;
 }
 
-.type h1 {
+.section-title h1 {
     text-align: center;
     margin: 0;
     padding: 15px;
 }
 
-.type-ingredient {
+.filter-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -375,29 +155,27 @@ label {
 }
 
 .scrollable-content {
-    margin-top: 100px;
     width: 100%;
 }
 
-.total-ingredients {
+.menu-container {
     display: flex;
     flex-direction: column;
 }
 
-.sum-ingredients {
+.menu-grid {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-left: 0;
-    padding: 10px;
 }
 
-.buttons-container {
+.filter-buttons {
     display: flex;
     gap: 5px;
 }
 
-.buttons-container .button {
+.filter-buttons .button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -413,11 +191,11 @@ label {
     transition: background-color 0.3s;
 }
 
-.buttons-container .button.active {
+.filter-buttons .button.active {
     background-color: #A5E135;
 }
 
-.buttons-container .button:hover {
+.filter-buttons .button:hover {
     background-color: #A5E135;
 }
 
@@ -451,151 +229,123 @@ label {
     pointer-events: none;
 }
 
-.box {
-    width: 150px;
-    height: 230px;
-    margin: 30px 0 30px 30px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
+/******************************************* Menu Cards *******************************************/
+.menu-card {
+    width: 300px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: transform 0.2s ease;
 }
 
-.box:hover {
+.menu-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.box img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 8px;
-}
-
-.box h1 {
-    font-size: 16px;
-    margin: 8px 0;
-    color: #333;
-}
-
-.box p {
-    margin: 4px 0;
-    color: #666;
-    font-size: 14px;
-}
-
-.box button {
-    margin-top: 12px;
-    padding: 6px 16px;
-    background-color: #A5E135;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 500;
-}
-
-.box button:hover {
-    background-color: #8bc31a;
-    transform: translateY(-1px);
-}
-
-.ingredient-item {
+.menu-card-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
     display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    justify-content: space-between;
-    padding: 8px 12px;
-    margin: 5px 0;
-    background: #ffffff;
-    border-radius: 5px;
-    border: 1px solid #e7e7e7;
-    transition: transform 0.2s;
 }
 
-.ingredient-item:hover {
-    transform: translateX(2px);
-}
-
-.ingredient-info {
-    flex: 1;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.ingredient-info span {
+.menu-info {
     flex: 1;
 }
 
-.calorie-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.menu-name {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
 }
 
-.quantity-delete-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: auto;
-    padding-left: 10px;
+.menu-date {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
 }
 
-.ingredient-item .delete-btn {
+.delete-menu-btn {
     background: none;
     border: none;
-    padding: 0;
+    padding: 5px;
     cursor: pointer;
+    transition: transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    transition: background-color 0.2s;
 }
 
-.ingredient-item .delete-btn:hover {
-    background-color: #ff4444;
+.delete-menu-btn:hover {
+    transform: scale(1.1);
+    background-color: #ffebee;
 }
 
-.ingredient-item .delete-btn img {
+.delete-menu-btn img {
     width: 20px;
     height: 20px;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
-    transition: filter 0.2s;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
 }
 
-.ingredient-item .delete-btn:hover img {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+.delete-menu-btn:hover img {
+    opacity: 1;
 }
 
-.food-img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.name-calorie-container {
+.menu-card-footer {
+    padding: 15px;
+    background-color: #f8f8f8;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calorie-info {
+    display: flex;
+    align-items: baseline;
     gap: 5px;
 }
 
-/* Modal styles */
+.calorie-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #A5E135;
+}
+
+.calorie-unit {
+    font-size: 16px;
+    color: #666;
+}
+
+.view-details-btn {
+    padding: 8px 15px;
+    background-color: #A5E135;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.view-details-btn:hover {
+    background-color: #8bc31a;
+}
+
+/* Hide menu cards when not in My Menu */
+.right-content:not(.my-menu-active) .menu-card {
+    display: none;
+}
+
+/******************************************* Modal Styles *******************************************/
 .modal {
     display: none;
     position: fixed;
@@ -604,234 +354,482 @@ label {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 8px;
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.modal h2 {
-    margin: 0 0 20px 0;
+.success-modal {
+    padding: 2.5rem 2rem;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.success-modal h2 {
     color: #333;
-}
-
-.modal-form {
-    margin-bottom: 20px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-    position: relative;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-    font-weight: 500;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #A5E135;
-    outline: none;
-    box-shadow: 0 0 5px rgba(165, 225, 53, 0.3);
-}
-
-/* Error message styling */
-.error-message {
-    display: none;
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 5px;
-    position: absolute;
-    left: 0;
-    bottom: -18px;
-}
-
-.form-group.error input {
-    border-color: #dc3545;
-}
-
-.form-group.error .error-message {
-    display: block;
-}
-
-/* ทำให้ select มีความกว้างเท่ากับ input */
-.form-group select {
-    width: 100%;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    padding-right: 30px;
-}
-
-/* ทำให้ input type datetime-local มีความกว้างเท่ากับช่องอื่นๆ */
-.form-group input[type="datetime-local"] {
-    width: 100%;
-    min-height: 33px;
-    position: relative;
-    cursor: pointer;
-}
-
-/* สไตล์สำหรับ datetime-local ใน Firefox */
-.form-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
-}
-
-/* เพิ่มระยะห่างด้านล่างของ form group เมื่อมี error */
-.form-group.error {
-    margin-bottom: 25px;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .modal-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .modal-buttons button {
-    padding: 8px 20px;
+    padding: 0.8rem 2rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-    min-width: 100px; /* ทำให้ปุ่มมีความกว้างขั้นต่ำเท่ากัน */
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-#confirmSave {
-    background-color: #4CAF50;
+.delete-btn {
+    background-color: #dc3545;
     color: white;
 }
 
-#confirmSave:hover {
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+.confirm-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.8rem 3rem;
+}
+
+.confirm-btn:hover {
     background-color: #45a049;
 }
 
-#cancelSave {
-    background-color: #f44336;
+/******************************************* Add Button Styles *******************************************/
+.add-button-container {
+    display: none;
+    padding: 0 20px;
+    padding-top: 120px;
+}
+
+.right-content.my-menu-active .add-button-container {
+    display: flex;
+}
+
+.add-daily-meal-container {
+    display: none;
+    padding: 0 20px;
+    padding-top: 120px;
+}
+
+.right-content.daily-meal-active .add-daily-meal-container {
+    display: flex;
+}
+
+.add-menu-btn, .add-daily-meal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #A5E135;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-menu-btn:hover, .add-daily-meal-btn:hover {
+    background-color: #8bc31a;
+    transform: translateY(-1px);
+}
+
+.add-menu-btn img, .add-daily-meal-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/******************************************* Daily Meal Styles *******************************************/
+.daily-meal-content {
+    display: none;
+    padding: 20px;
+}
+
+.right-content.daily-meal-active .daily-meal-content {
+    display: block;
+}
+
+.daily-meal-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.daily-meal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.date-info .date {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    background: none;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.action-buttons .edit-btn {
+    background-color: #A5E135;
     color: white;
 }
 
-#cancelSave:hover {
-    background-color: #da190b;
+.action-buttons .edit-btn:hover {
+    background-color: #8bc31a;
+    transform: translateY(-1px);
 }
 
-/* Success Modal Styles */
-.success-modal {
-    padding: 30px !important;
-    width: 300px !important;
-    text-align: center;
-    animation: modalPopIn 0.3s ease-out;
+.action-buttons .delete-btn {
+    background-color: #ff4444;
+    color: white;
 }
 
-.success-icon {
-    font-size: 48px;
-    color: #4CAF50;
-    margin-bottom: 20px;
-    animation: iconScale 0.5s ease-out;
-    background-color: rgba(76, 175, 80, 0.1);
-    width: 80px;
-    height: 80px;
+.action-buttons .delete-btn:hover {
+    background-color: #cc0000;
+    transform: translateY(-1px);
+}
+
+.action-buttons img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+.meal-section {
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.meal-section:last-of-type {
+    border-bottom: none;
+}
+
+.meal-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.meal-image {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.meal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.meal-details {
+    flex: 1;
+}
+
+.meal-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.meal-type {
+    font-size: 14px;
+    color: #666;
+    display: block;
+    margin-top: 4px;
+}
+
+.meal-calories {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.meal-calories .calorie-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #A5E135;
+}
+
+.meal-calories .calorie-unit {
+    font-size: 14px;
+    color: #666;
+}
+
+.total-calories {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.total-calories .total-calorie-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #A5E135;
+}
+
+.total-calories .calorie-unit {
+    font-size: 16px;
+    color: #666;
+}
+
+/******************************************* Healthy Content Styles *******************************************/
+.healthy-content {
+    display: none;
+    padding: 20px;
+    padding-top: 120px;
+}
+
+.right-content.my-healthy-active .healthy-content {
+    display: block;
+}
+
+.bmi-card, .tdee-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.bmi-header, .tdee-header {
+    margin-bottom: 20px;
+}
+
+.bmi-header h2, .tdee-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.bmi-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bmi-value {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.bmi-value .value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #A5E135;
+}
+
+.bmi-value .unit {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.bmi-status .status {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.bmi-status .normal {
+    background-color: #A5E135;
+    color: white;
+}
+
+.bmi-range {
+    margin-top: 20px;
+}
+
+.range-bar {
+    display: flex;
+    height: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.range {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-@keyframes modalPopIn {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+.range.underweight {
+    background-color: #FFB74D;
 }
 
-@keyframes iconScale {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
+.range.normal {
+    background-color: #A5E135;
 }
 
-.success-modal h2 {
-    color: #333;
-    margin: 0;
-    font-size: 24px;
+.range.overweight {
+    background-color: #FFA726;
 }
 
-/* Reset Confirmation Modal Styles */
-#resetConfirmModal .modal-content {
-    width: 350px;
+.range.obese {
+    background-color: #FF7043;
 }
 
-#resetConfirmModal p {
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
     color: #666;
-    margin: 15px 0 20px;
-    font-size: 16px;
+    font-size: 0.9rem;
 }
 
-#confirmReset {
-    background-color: #f44336;
+.activity-level {
+    margin-bottom: 20px;
+}
+
+.activity-level h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.activity-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.activity-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.activity-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.activity-btn.active {
+    background-color: #A5E135;
     color: white;
 }
 
-#confirmReset:hover {
-    background-color: #da190b;
+.activity-btn img {
+    width: 24px;
+    height: 24px;
 }
 
-#cancelReset {
-    background-color: #e0e0e0;
+.tdee-result {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.calorie-range {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.range-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.range-item .label {
     color: #666;
+    font-size: 0.9rem;
 }
 
-#cancelReset:hover {
-    background-color: #d0d0d0;
+.range-item .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #A5E135;
+}
+
+.range-item .unit {
+    color: #666;
+    font-size: 0.9rem;
 }
 
   
