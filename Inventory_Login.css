@@ -152,6 +152,7 @@
     align-items: center;
     background-color: #D7F998;
     width: 100%;
+    min-height: 30px;
 }
 
 .scrollable-content {
@@ -444,7 +445,6 @@
 }
 
 .meal-header span {
-    flex: 1;
     font-weight: 500;
     color: #333;
 }
@@ -912,6 +912,16 @@
     color: #666;
 }
 
+.meal-total-calories-inline {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #A5E135;
+    font-size: 18px;
+    margin-left: 12px;
+    justify-content: flex-end;
+}
+
 /******************************************* Healthy Content Styles *******************************************/
 .healthy-content {
     display: none;
@@ -1189,6 +1199,7 @@
 }
 #editDailyMealModal .delete-meal-btn:hover {
   background: #ffeaea;
+  border-radius: 50%;
 }
 #editDailyMealModal .meal-type-label {
   margin-left: 0;
@@ -1216,6 +1227,176 @@
 }
 #editDailyMealModal .meal-section-edit.empty .select-new-meal-btn {
   display: flex !important;
+}
+
+.meal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.meal-list-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  gap: 10px;
+}
+.meal-list-item .meal-name {
+  font-weight: 500;
+  color: #333;
+}
+.meal-list-item .meal-calories {
+  color: #666;
+  font-size: 14px;
+  margin-right: 10px;
+}
+.meal-list-item .delete-meal-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 8px;
+}
+.add-meal-btn {
+  margin-top: 4px;
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.add-meal-btn:hover {
+  background: #388e3c;
+}
+
+.meal-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.meal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.add-meal-btn {
+  margin-top: 0;
+  margin-left: auto;
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+.add-meal-btn:hover {
+  background: #388e3c;
+}
+
+.meal-type-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #388e3c;
+  margin-bottom: 2px;
+  display: block;
+}
+.meal-list-item.web-view {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin-left: 24px;
+  color: #333;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+.menu-calories {
+  color: #888;
+  font-size: 0.95em;
+  margin-left: 6px;
+}
+.meal-total-calories {
+  font-weight: bold;
+  color: #A5E135;
+  font-size: 18px;
+  margin-left: 12px;
+  align-items: flex-end;
+}
+.meal-info.web-view {
+  align-items: flex-start;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.menu-detail-modal {
+  position: relative;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2.2rem 2.2rem 1.7rem 2.2rem;
+  border-radius: 16px;
+  background: #fff;
+  text-align: left;
+  box-shadow: 0 8px 32px rgba(60,80,60,0.18), 0 1.5px 8px rgba(60,80,60,0.10);
+  min-width: 320px;
+}
+.menu-detail-modal h2 {
+  margin-top: 0;
+  color: #388e3c;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.detail-menu-date {
+  color: #888;
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+}
+.detail-ingredients {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.detail-ingredient-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  padding: 2px 0;
+  border-bottom: 1px dashed #e0e0e0;
+}
+.detail-ingredient-row:last-child {
+  border-bottom: none;
+}
+.detail-total-calories {
+  text-align: right;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #388e3c;
+  margin-top: 20px;
+}
+.close-detail-modal {
+  color: #888;
+  font-size: 2rem !important;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.close-detail-modal:hover {
+  color: #fff;
+  background: #d32f2f;
 }
 
   

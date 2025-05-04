@@ -3,18 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const mealIcons = {
         breakfast: [
             "https://cdn-icons-png.flaticon.com/512/3480/3480823.png",
-            "https://cdn-icons-png.flaticon.com/512/3480/3480824.png",
-            "https://cdn-icons-png.flaticon.com/512/3480/3480825.png"
+            "https://cdn-icons-png.flaticon.com/512/3274/3274099.png",
+            "https://cdn-icons-png.flaticon.com/512/12009/12009846.png"
         ],
         lunch: [
+            "https://cdn-icons-png.flaticon.com/512/3480/3480823.png",
             "https://cdn-icons-png.flaticon.com/512/3274/3274099.png",
-            "https://cdn-icons-png.flaticon.com/512/3274/3274100.png",
-            "https://cdn-icons-png.flaticon.com/512/3274/3274101.png"
+            "https://cdn-icons-png.flaticon.com/512/12009/12009846.png"
         ],
         dinner: [
-            "https://cdn-icons-png.flaticon.com/512/12009/12009846.png",
-            "https://cdn-icons-png.flaticon.com/512/12009/12009847.png",
-            "https://cdn-icons-png.flaticon.com/512/12009/12009848.png"
+            "https://cdn-icons-png.flaticon.com/512/3480/3480823.png",
+            "https://cdn-icons-png.flaticon.com/512/3274/3274099.png",
+            "https://cdn-icons-png.flaticon.com/512/12009/12009846.png"
         ]
     };
 
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedMealType = null;
     let selectedMenu = null;
     let menuToDelete = null;
+    let isEdit = false;
 
     // Button categories for each menu type
     const buttonCategories = {
@@ -157,19 +158,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Sort menu cards by creation date
     function sortMenuCards() {
-        const menuCards = Array.from(elements.menuGrid.children);
+        const menuGrid = document.querySelector('.menu-grid');
+        const menuCards = Array.from(menuGrid.querySelectorAll('.menu-card'));
+        const thaiMonths = {
+            'มกราคม': '01', 'กุมภาพันธ์': '02', 'มีนาคม': '03', 'เมษายน': '04',
+            'พฤษภาคม': '05', 'มิถุนายน': '06', 'กรกฎาคม': '07', 'สิงหาคม': '08',
+            'กันยายน': '09', 'ตุลาคม': '10', 'พฤศจิกายน': '11', 'ธันวาคม': '12'
+        };
         menuCards.sort((a, b) => {
-            const dateA = new Date(a.querySelector('.menu-date').textContent.split(': ')[1]);
-            const dateB = new Date(b.querySelector('.menu-date').textContent.split(': ')[1]);
-            return dateB - dateA;
+            // ดึงวันที่จาก .menu-date หรือ data-created
+            let dateA = a.querySelector('.menu-date')?.textContent.replace('Created:', '').trim() || a.getAttribute('data-created') || '';
+            let dateB = b.querySelector('.menu-date')?.textContent.replace('Created:', '').trim() || b.getAttribute('data-created') || '';
+            // รองรับรูปแบบวันที่ไทย (วันที่ dd เดือน yyyy)
+            if (dateA.startsWith('วันที่')) {
+                const [_, day, month, year] = dateA.split(' ');
+                dateA = `${year}-${thaiMonths[month]}-${day.padStart(2, '0')}`;
+            }
+            if (dateB.startsWith('วันที่')) {
+                const [_, day, month, year] = dateB.split(' ');
+                dateB = `${year}-${thaiMonths[month]}-${day.padStart(2, '0')}`;
+            }
+            // แปลงเป็น Date object
+            const dA = new Date(dateA);
+            const dB = new Date(dateB);
+            return dB - dA;
         });
-        menuCards.forEach(card => elements.menuGrid.appendChild(card));
+        menuCards.forEach(card => menuGrid.appendChild(card));
+        showOrHideNoMyMenuMessage();
     }
 
     // Sort daily meal cards by date
     function sortDailyMealCards() {
         const dailyMealContent = document.querySelector('.daily-meal-content');
-        const dailyMealCards = Array.from(dailyMealContent.children);
+        const dailyMealCards = Array.from(dailyMealContent.querySelectorAll('.daily-meal-card'));
         
         // Thai month mapping
         const thaiMonths = {
@@ -195,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Reappend sorted cards
         dailyMealCards.forEach(card => dailyMealContent.appendChild(card));
+        showOrHideNoDailyMealMessage();
     }
 
     // Delete functionality for My Menu
@@ -213,195 +235,282 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Save edit changes
-    document.getElementById('saveEdit').addEventListener('click', () => {
-        const newDate = new Date(document.getElementById('editDate').value);
-        const thaiMonths = [
-            'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-            'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-        ];
-        const dateText = `วันที่ ${newDate.getDate()} ${thaiMonths[newDate.getMonth()]} ${newDate.getFullYear()}`;
+    // State for edit modal
+    let editMeals = {
+        breakfast: [],
+        lunch: [],
+        dinner: []
+    };
 
-        if (currentDailyMealCard) {
-            // Update existing card
-            currentDailyMealCard.querySelector('.date-info .date').textContent = dateText;
-        } else {
-            // Create new card
-            const dailyMealContent = document.querySelector('.daily-meal-content');
-            const newCard = document.createElement('div');
-            newCard.className = 'daily-meal-card';
-            newCard.innerHTML = `
-                <div class="daily-meal-header">
-                    <div class="date-info">
-                        <span class="date">${dateText}</span>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="edit-btn">
-                            <img src="https://cdn-icons-png.flaticon.com/512/992/992664.png" alt="Edit">Edit
-                        </button>
-                        <button class="delete-btn">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">Delete
-                        </button>
-                    </div>
-                </div>
+    // Render meal list for a meal type
+    function renderMealList(mealType) {
+        const mealListDiv = document.querySelector(`.meal-section-edit.${mealType} .meal-list`);
+        mealListDiv.innerHTML = '';
+        editMeals[mealType].forEach((meal, idx) => {
+            const item = document.createElement('div');
+            item.className = 'meal-list-item';
+            item.innerHTML = `
+                <span class="meal-name">${meal.name}</span>
+                <span class="meal-calories">${meal.calories} kcal</span>
+                <button class="delete-meal-btn" data-idx="${idx}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
+                </button>
             `;
+            item.querySelector('.delete-meal-btn').onclick = () => {
+                editMeals[mealType].splice(idx, 1);
+                renderMealList(mealType);
+                updateTotalCaloriesEdit();
+            };
+            mealListDiv.appendChild(item);
+        });
+    }
 
-            // Add meal sections
-            ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-                const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-                const mealName = editSection.querySelector('.meal-name').textContent;
-                const calories = editSection.querySelector('.meal-calories').textContent.split(' ')[0];
-                const icon = editSection.querySelector('.meal-icon').src;
-                const mealTypeText = editSection.querySelector('.meal-type-label').textContent;
+    // Add meal button functionality
+    function setupAddMealBtns() {
+        document.querySelectorAll('.meal-section-edit').forEach(section => {
+            const btn = section.querySelector('.add-meal-btn');
+            if (btn) {
+                btn.onclick = () => {
+                    selectedMealType = section.classList[1];
+                    showMenuSelection();
+                };
+            }
+        });
+    }
 
-                const mealSection = document.createElement('div');
-                mealSection.className = `meal-section ${mealType}`;
-                mealSection.innerHTML = `
-                    <div class="meal-info">
-                        <div class="meal-image">
-                            <img src="${icon}" alt="${mealTypeText}">
-                        </div>
-                        <div class="meal-details">
-                            <h3 class="meal-name">${mealName}</h3>
-                            <span class="meal-type">${mealTypeText}</span>
-                        </div>
-                        <div class="meal-calories">
-                            <span class="calorie-value">${calories}</span>
-                            <span class="calorie-unit">kcal</span>
-                        </div>
-                    </div>
-                `;
-                newCard.appendChild(mealSection);
-            });
-
-            // Add total calories
-            let total = 0;
-            ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-                const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-                const calories = parseInt(editSection.querySelector('.meal-calories').textContent);
-                if (!isNaN(calories)) total += calories;
-            });
-
-            const totalCaloriesDiv = document.createElement('div');
-            totalCaloriesDiv.className = 'total-calories';
-            totalCaloriesDiv.innerHTML = `
-                <span>แคลอรี่ทั้งหมด:</span>
-                <span class="total-calorie-value">${total}</span>
-                <span class="calorie-unit">kcal</span>
-            `;
-            newCard.appendChild(totalCaloriesDiv);
-
-            // Add event listeners to new buttons
-            newCard.querySelector('.edit-btn').addEventListener('click', () => {
-                currentDailyMealCard = newCard;
-                populateEditModal(newCard);
-                elements.editDailyMealModal.style.display = 'flex';
-            });
-
-            newCard.querySelector('.delete-btn').addEventListener('click', () => {
-                currentDailyMealCard = newCard;
-                elements.deleteConfirmModal.style.display = 'flex';
-            });
-
-            // Add the new card to the content
-            dailyMealContent.appendChild(newCard);
+    // Handle menu selection confirmation
+    elements.confirmMenuBtn.addEventListener('click', () => {
+        if (selectedMenu && selectedMealType) {
+            editMeals[selectedMealType].push({...selectedMenu});
+            renderMealList(selectedMealType);
+            updateTotalCaloriesEdit();
+            elements.selectMenuModal.style.display = 'none';
+            elements.editDailyMealModal.style.display = 'flex';
         }
+    });
 
-        // Update or create meal sections
-        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-            const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-            const mealName = editSection.querySelector('.meal-name').textContent;
-            const calories = editSection.querySelector('.meal-calories').textContent.split(' ')[0];
-            const icon = editSection.querySelector('.meal-icon').src;
-            const mealTypeText = editSection.querySelector('.meal-type-label').textContent;
-
-            let mealSection = currentDailyMealCard ? 
-                currentDailyMealCard.querySelector(`.meal-section.${mealType}`) : 
-                document.querySelector(`.daily-meal-card:last-child .meal-section.${mealType}`);
-
-            if (!mealSection) {
-                mealSection = document.createElement('div');
-                mealSection.className = `meal-section ${mealType}`;
-                const ref = mealType === 'breakfast' ? 
-                    (currentDailyMealCard ? 
-                        currentDailyMealCard.querySelector('.meal-section.lunch') || 
-                        currentDailyMealCard.querySelector('.meal-section.dinner') : 
-                        document.querySelector(`.daily-meal-card:last-child .meal-section.lunch`) || 
-                        document.querySelector(`.daily-meal-card:last-child .meal-section.dinner`)) : 
-                    mealType === 'lunch' ? 
-                        (currentDailyMealCard ? 
-                            currentDailyMealCard.querySelector('.meal-section.dinner') : 
-                            document.querySelector(`.daily-meal-card:last-child .meal-section.dinner`)) : 
-                        null;
-
-                const targetCard = currentDailyMealCard || document.querySelector('.daily-meal-card:last-child');
-                if (ref) {
-                    targetCard.insertBefore(mealSection, ref);
-                } else {
-                    const header = targetCard.querySelector('.daily-meal-header');
-                    header.insertAdjacentElement('afterend', mealSection);
-                }
-            }
-
-            if (mealName === 'เมนูยังไม่ถูกเลือก' || calories === '0') {
-                mealSection.innerHTML = `
-                    <div class="meal-info">
-                        <div class="meal-image">
-                            <img src="${icon}" alt="${mealTypeText}">
-                        </div>
-                        <div class="meal-details">
-                            <h3 class="meal-name">เมนูยังไม่ถูกเลือก</h3>
-                            <span class="meal-type">${mealTypeText}</span>
-                        </div>
-                        <div class="meal-calories">
-                            <span class="calorie-value">0</span>
-                            <span class="calorie-unit">kcal</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                mealSection.innerHTML = `
-                    <div class="meal-info">
-                        <div class="meal-image">
-                            <img src="${icon}" alt="${mealTypeText}">
-                        </div>
-                        <div class="meal-details">
-                            <h3 class="meal-name">${mealName}</h3>
-                            <span class="meal-type">${mealTypeText}</span>
-                        </div>
-                        <div class="meal-calories">
-                            <span class="calorie-value">${calories}</span>
-                            <span class="calorie-unit">kcal</span>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-
-        // Update total calories
+    // Update total calories in edit modal
+    function updateTotalCaloriesEdit() {
         let total = 0;
-        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-            const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-            const calories = parseInt(editSection.querySelector('.meal-calories').textContent);
-            if (!isNaN(calories)) total += calories;
+        Object.values(editMeals).forEach(meals => {
+            meals.forEach(meal => {
+                total += parseInt(meal.calories);
+            });
         });
+        document.querySelector('.total-calories-edit .total-calorie-value').textContent = total;
+    }
 
-        const targetCard = currentDailyMealCard || document.querySelector('.daily-meal-card:last-child');
-        targetCard.querySelector('.total-calorie-value').textContent = total;
+    // Populate edit modal with current meal data
+    function populateEditModal(card) {
+        // Reset editMeals
+        editMeals = { breakfast: [], lunch: [], dinner: [] };
+        // Set date
+        const dateText = card.querySelector('.date-info .date').textContent;
+        const [day, month, year] = dateText.replace('วันที่ ', '').split(' ');
+        const thaiMonths = {
+            'มกราคม': '01', 'กุมภาพันธ์': '02', 'มีนาคม': '03', 'เมษายน': '04',
+            'พฤษภาคม': '05', 'มิถุนายน': '06', 'กรกฎาคม': '07', 'สิงหาคม': '08',
+            'กันยายน': '09', 'ตุลาคม': '10', 'พฤศจิกายน': '11', 'ธันวาคม': '12'
+        };
+        const date = `${year}-${thaiMonths[month]}-${day.padStart(2, '0')}`;
+        document.getElementById('editDate').value = date;
+        // Populate meal sections (อ่านทุกเมนูในแต่ละมื้อ)
+        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+            const mealSection = card.querySelector(`.meal-section.${mealType}`);
+            editMeals[mealType] = [];
+            if (mealSection) {
+                // อ่านทุก .meal-list-item ภายใน .meal-section
+                const mealItems = mealSection.querySelectorAll('.meal-list-item');
+                mealItems.forEach(item => {
+                    const name = item.querySelector('.meal-name')?.childNodes[0]?.textContent.trim() || '';
+                    const caloriesText = item.querySelector('.menu-calories')?.textContent || '';
+                    // รองรับ (450 kcal), (450kcal), (450) หรือ ( 450 kcal )
+                    const caloriesMatch = caloriesText.match(/\((\d+)\s*(kcal)?\)/i);
+                    const calories = caloriesMatch ? caloriesMatch[1] : '0';
+                    if (name && name !== 'เมนูยังไม่ถูกเลือก') {
+                        editMeals[mealType].push({ name, calories });
+                    }
+                });
+            }
+            renderMealList(mealType);
+        });
+        updateTotalCaloriesEdit();
+    }
 
-        // Close modal and show success message
-        elements.editDailyMealModal.style.display = 'none';
-        
-        // Update success modal content
-        const successModal = elements.deleteSuccessModal;
-        successModal.querySelector('h2').textContent = currentDailyMealCard ? 'แก้ไขสำเร็จ' : 'เพิ่มเมนูสำเร็จ';
-        successModal.style.display = 'flex';
+    // Save edit changes
+    const saveEditBtn = document.getElementById('saveEdit');
+    if (saveEditBtn) {
+        saveEditBtn.onclick = () => {
+            const newDate = new Date(document.getElementById('editDate').value);
+            const thaiMonths = [
+                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+            ];
+            const dateText = `วันที่ ${newDate.getDate()} ${thaiMonths[newDate.getMonth()]} ${newDate.getFullYear()}`;
+            if (currentDailyMealCard) {
+                // Update existing card: ลบ meal-section เดิมและเติมใหม่
+                currentDailyMealCard.querySelector('.date-info .date').textContent = dateText;
+                // ลบ meal-section เดิม
+                currentDailyMealCard.querySelectorAll('.meal-section').forEach(e => e.remove());
+                // ลบ total-calories เดิม
+                const oldTotal = currentDailyMealCard.querySelector('.total-calories');
+                if (oldTotal) oldTotal.remove();
+                // เติม meal-section ใหม่
+                ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+                    const mealSection = document.createElement('div');
+                    mealSection.className = `meal-section ${mealType}`;
+                    const mealTypeLabel = mealType === 'breakfast' ? 'มื้อเช้า' : mealType === 'lunch' ? 'มื้อกลางวัน' : 'มื้อเย็น';
+                    const iconUrl = document.querySelector(`.meal-section-edit.${mealType} .meal-icon`).src;
+                    let mealListHtml = '';
+                    if (editMeals[mealType].length > 0) {
+                        mealListHtml = editMeals[mealType].map(m => `
+                            <div class="meal-list-item web-view">
+                                <span class="meal-name">${m.name} <span class="menu-calories">(${m.calories} kcal)</span></span>
+                            </div>
+                        `).join('');
+                    } else {
+                        mealListHtml = `<div class="meal-list-item web-view"><span class="meal-name">เมนูยังไม่ถูกเลือก</span></div>`;
+                    }
+                    const totalMealCalories = editMeals[mealType].reduce((sum, m) => sum + parseInt(m.calories), 0);
+                    mealSection.innerHTML = `
+                        <div class="meal-info web-view" style="align-items:flex-start;">
+                            <div class="meal-image">
+                                <img src="${iconUrl}" alt="${mealTypeLabel}">
+                            </div>
+                            <div class="meal-details" style="flex:1;">
+                                <span class="meal-type meal-type-title">${mealTypeLabel}</span>
+                                <div class="meal-list">${mealListHtml}</div>
+                            </div>
+                            <div class="meal-calories meal-total-calories-inline">
+                                <span class="calorie-value">${totalMealCalories}</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    `;
+                    currentDailyMealCard.appendChild(mealSection);
+                });
+                // เติม total-calories ใหม่
+                const totalCaloriesDiv = document.createElement('div');
+                totalCaloriesDiv.className = 'total-calories';
+                const totalCalories = Object.values(editMeals).reduce((sum, meals) => 
+                    sum + meals.reduce((mealSum, meal) => mealSum + parseInt(meal.calories), 0), 0
+                );
+                totalCaloriesDiv.innerHTML = `
+                    <span>แคลอรี่ทั้งหมด:</span>
+                    <span class="total-calorie-value">${totalCalories}</span>
+                    <span class="calorie-unit">kcal</span>
+                `;
+                currentDailyMealCard.appendChild(totalCaloriesDiv);
+                // reset ตัวแปรหลังบันทึก
+                currentDailyMealCard = null;
+            } else {
+                // เพิ่มใหม่
+                const dailyMealContent = document.querySelector('.daily-meal-content');
+                const newCard = document.createElement('div');
+                newCard.className = 'daily-meal-card';
+                newCard.innerHTML = `
+                    <div class="daily-meal-header">
+                        <div class="date-info">
+                            <span class="date">${dateText}</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="edit-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/992/992664.png" alt="Edit">Edit
+                            </button>
+                            <button class="delete-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // Add meal sections (เหมือนกับตอนแก้ไข)
+                ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+                    const mealSection = document.createElement('div');
+                    mealSection.className = `meal-section ${mealType}`;
+                    const mealTypeLabel = mealType === 'breakfast' ? 'มื้อเช้า' : mealType === 'lunch' ? 'มื้อกลางวัน' : 'มื้อเย็น';
+                    const iconUrl = document.querySelector(`.meal-section-edit.${mealType} .meal-icon`).src;
+                    let mealListHtml = '';
+                    if (editMeals[mealType].length > 0) {
+                        mealListHtml = editMeals[mealType].map(m => `
+                            <div class="meal-list-item web-view">
+                                <span class="meal-name">${m.name} <span class="menu-calories">(${m.calories} kcal)</span></span>
+                            </div>
+                        `).join('');
+                    } else {
+                        mealListHtml = `<div class="meal-list-item web-view"><span class="meal-name">เมนูยังไม่ถูกเลือก</span></div>`;
+                    }
+                    const totalMealCalories = editMeals[mealType].reduce((sum, m) => sum + parseInt(m.calories), 0);
+                    mealSection.innerHTML = `
+                        <div class="meal-info web-view" style="align-items:flex-start;">
+                            <div class="meal-image">
+                                <img src="${iconUrl}" alt="${mealTypeLabel}">
+                            </div>
+                            <div class="meal-details" style="flex:1;">
+                                <span class="meal-type meal-type-title">${mealTypeLabel}</span>
+                                <div class="meal-list">${mealListHtml}</div>
+                            </div>
+                            <div class="meal-calories meal-total-calories-inline">
+                                <span class="calorie-value">${totalMealCalories}</span>
+                                <span class="calorie-unit">kcal</span>
+                            </div>
+                        </div>
+                    `;
+                    newCard.appendChild(mealSection);
+                });
+                // Add total calories
+                const totalCaloriesDiv = document.createElement('div');
+                totalCaloriesDiv.className = 'total-calories';
+                const totalCalories = Object.values(editMeals).reduce((sum, meals) => 
+                    sum + meals.reduce((mealSum, meal) => mealSum + parseInt(meal.calories), 0), 0
+                );
+                totalCaloriesDiv.innerHTML = `
+                    <span>แคลอรี่ทั้งหมด:</span>
+                    <span class="total-calorie-value">${totalCalories}</span>
+                    <span class="calorie-unit">kcal</span>
+                `;
+                newCard.appendChild(totalCaloriesDiv);
+                // Add event listeners to new buttons
+                newCard.querySelector('.edit-btn').addEventListener('click', () => {
+                    currentDailyMealCard = newCard;
+                    populateEditModal(newCard);
+                    document.getElementById('editDailyMealModal').style.display = 'flex';
+                });
+                newCard.querySelector('.delete-btn').addEventListener('click', () => {
+                    currentDailyMealCard = newCard;
+                    document.getElementById('deleteConfirmModal').style.display = 'flex';
+                });
+                // Add the new card to the content
+                dailyMealContent.appendChild(newCard);
+                // เรียงกล่องตามวันที่ (ใหม่สุดอยู่บน)
+                sortDailyMealCards();
+            }
+            // Close modal and show success message
+            document.getElementById('editDailyMealModal').style.display = 'none';
+            const successModal = document.getElementById('deleteSuccessModal');
+            if (isEdit) {
+                successModal.querySelector('h2').textContent = 'แก้ไขสำเร็จ';
+            } else {
+                successModal.querySelector('h2').textContent = 'เพิ่มเมนูสำเร็จ';
+            }
+            successModal.style.display = 'flex';
+            // Sort cards after adding/editing
+            sortDailyMealCards();
+            // Reset currentDailyMealCard
+            currentDailyMealCard = null;
+            isEdit = false;
+            setupEditButtons();
+        };
+    }
 
-        // Sort cards after adding/editing
-        sortDailyMealCards();
+    // Setup add meal buttons on page load
+    setupAddMealBtns();
 
-        // Reset currentDailyMealCard
-        currentDailyMealCard = null;
+    // Delete functionality for Daily Meal
+    document.querySelectorAll('.daily-meal-card .delete-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            currentDailyMealCard = button.closest('.daily-meal-card');
+            elements.deleteConfirmModal.style.display = 'flex';
+        });
     });
 
     // Confirm delete
@@ -414,6 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
             successModal.querySelector('h2').textContent = 'ลบเมนูเสร็จสิ้น';
             successModal.style.display = 'flex';
             menuToDelete = null;
+            showOrHideNoDailyMealMessage();
         } else if (currentDailyMealCard) {
             currentDailyMealCard.remove();
             elements.deleteConfirmModal.style.display = 'none';
@@ -422,6 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
             successModal.querySelector('h2').textContent = 'ลบเมนูเสร็จสิ้น';
             successModal.style.display = 'flex';
             currentDailyMealCard = null;
+            showOrHideNoDailyMealMessage();
         }
     });
 
@@ -486,89 +597,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Daily Meal Edit functionality
-    document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            currentDailyMealCard = button.closest('.daily-meal-card');
-            populateEditModal(currentDailyMealCard);
-            elements.editDailyMealModal.style.display = 'flex';
+    function setupEditButtons() {
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.onclick = () => {
+                currentDailyMealCard = button.closest('.daily-meal-card');
+                isEdit = true;
+                populateEditModal(currentDailyMealCard);
+                document.getElementById('editDailyMealModal').style.display = 'flex';
+            };
         });
-    });
-
-    // Populate edit modal with current meal data
-    function populateEditModal(card) {
-        // Set date
-        const dateText = card.querySelector('.date-info .date').textContent;
-        const [day, month, year] = dateText.replace('วันที่ ', '').split(' ');
-        const thaiMonths = {
-            'มกราคม': '01', 'กุมภาพันธ์': '02', 'มีนาคม': '03', 'เมษายน': '04',
-            'พฤษภาคม': '05', 'มิถุนายน': '06', 'กรกฎาคม': '07', 'สิงหาคม': '08',
-            'กันยายน': '09', 'ตุลาคม': '10', 'พฤศจิกายน': '11', 'ธันวาคม': '12'
-        };
-        const date = `${year}-${thaiMonths[month]}-${day.padStart(2, '0')}`;
-        document.getElementById('editDate').value = date;
-
-        // Populate meal sections
-        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-            const mealSection = card.querySelector(`.meal-section.${mealType}`);
-            const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-            const selectBtn = editSection.querySelector('.select-new-meal-btn');
-            const deleteBtn = editSection.querySelector('.delete-meal-btn');
-
-            let mealName, calories, icon;
-            if (mealSection) {
-                mealName = mealSection.querySelector('.meal-name').textContent;
-                calories = mealSection.querySelector('.calorie-value').textContent;
-                icon = mealSection.querySelector('.meal-image img').src;
-            } else {
-                mealName = 'เมนูยังไม่ถูกเลือก';
-                calories = '0';
-                icon = editSection.querySelector('.meal-icon').src;
-            }
-            editSection.querySelector('.meal-name').textContent = mealName;
-            editSection.querySelector('.meal-calories').textContent = `${calories} kcal`;
-            editSection.querySelector('.meal-icon').src = icon;
-
-            if (mealName === 'เมนูยังไม่ถูกเลือก' || calories === '0' || calories === '0 kcal') {
-                editSection.classList.add('empty');
-                selectBtn.style.display = 'flex';
-                deleteBtn.style.display = 'none';
-            } else {
-                editSection.classList.remove('empty');
-                selectBtn.style.display = 'none';
-                deleteBtn.style.display = 'flex';
-            }
-        });
-
-        // Update total calories
-        let total = 0;
-        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-            const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-            const calories = parseInt(editSection.querySelector('.meal-calories').textContent);
-            if (!isNaN(calories)) total += calories;
-        });
-        document.querySelector('.total-calories-edit .total-calorie-value').textContent = total;
     }
-
-    // Handle menu selection confirmation
-    elements.confirmMenuBtn.addEventListener('click', () => {
-        if (selectedMenu && selectedMealType) {
-            const editSection = document.querySelector(`.meal-section-edit.${selectedMealType}`);
-            if (editSection) {
-                editSection.querySelector('.meal-name').textContent = selectedMenu.name;
-                editSection.querySelector('.meal-calories').textContent = `${selectedMenu.calories} kcal`;
-                editSection.classList.remove('empty');
-                // Hide select-new-meal-btn, show delete-meal-btn
-                editSection.querySelector('.select-new-meal-btn').style.display = 'none';
-                editSection.querySelector('.delete-meal-btn').style.display = 'flex';
-                updateTotalCaloriesEdit();
-                elements.selectMenuModal.style.display = 'none';
-                elements.editDailyMealModal.style.display = 'flex';
-                // Re-populate modal to ensure state is correct and keep currentDailyMealCard
-                // (Do not call resetSelection() here)
-                //populateEditModal(currentDailyMealCard); // Not needed, just keep state
-            }
-        }
-    });
 
     // Handle meal deletion (delete icon in edit modal)
     document.querySelectorAll('.meal-section-edit .delete-meal-btn').forEach(button => {
@@ -608,44 +646,36 @@ document.addEventListener("DOMContentLoaded", function () {
     function showMenuSelection() {
         elements.editDailyMealModal.style.display = 'none';
         elements.selectMenuModal.style.display = 'flex';
-        
         // Populate menu list
         const menuList = elements.selectMenuModal.querySelector('.menu-list');
         menuList.innerHTML = '';
-        
         // Get all menu cards from My Menu
         const menuCards = document.querySelectorAll('.menu-card');
         menuCards.forEach(card => {
+            const menuName = card.querySelector('.menu-name')?.textContent || '';
+            const calorieValue = card.querySelector('.calorie-value')?.textContent || '';
+            if (!menuName || !calorieValue) return;
             const menuItem = document.createElement('div');
             menuItem.className = 'menu-item';
             menuItem.innerHTML = `
                 <div class="menu-info">
-                    <span class="menu-name">${card.querySelector('.menu-name').textContent}</span>
+                    <span class="menu-name">${menuName}</span>
                 </div>
                 <div class="calorie-info">
-                    <span class="calorie-value">${card.querySelector('.calorie-value').textContent}</span>
+                    <span class="calorie-value">${calorieValue}</span>
                     <span class="calorie-unit">kcal</span>
                 </div>
             `;
-            
             menuItem.addEventListener('click', () => {
                 document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('selected'));
                 menuItem.classList.add('selected');
                 selectedMenu = {
-                    name: card.querySelector('.menu-name').textContent,
-                    calories: card.querySelector('.calorie-value').textContent
+                    name: menuName,
+                    calories: calorieValue
                 };
             });
-            
             menuList.appendChild(menuItem);
         });
-    }
-
-    // Update total calories in edit modal
-    function updateTotalCaloriesEdit() {
-        const total = Array.from(document.querySelectorAll('.meal-section-edit .meal-calories'))
-            .reduce((sum, el) => sum + parseInt(el.textContent), 0);
-        document.querySelector('.total-calories-edit .total-calorie-value').textContent = total;
     }
 
     // Reset selection
@@ -668,26 +698,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Add Daily Meal button functionality
-    document.querySelector('.add-daily-meal-btn').addEventListener('click', () => {
-        // Reset the edit modal
-        document.getElementById('editDate').value = new Date().toISOString().split('T')[0];
-        
-        // Reset all meal sections
-        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-            const editSection = document.querySelector(`.meal-section-edit.${mealType}`);
-            editSection.querySelector('.meal-name').textContent = 'เมนูยังไม่ถูกเลือก';
-            editSection.querySelector('.meal-calories').textContent = '0 kcal';
-            editSection.classList.add('empty');
-            editSection.querySelector('.select-new-meal-btn').style.display = 'flex';
-            editSection.querySelector('.delete-meal-btn').style.display = 'none';
+    const addDailyMealBtn = document.querySelector('.add-daily-meal-btn');
+    if (addDailyMealBtn) {
+        addDailyMealBtn.addEventListener('click', () => {
+            editMeals = { breakfast: [], lunch: [], dinner: [] };
+            document.getElementById('editDate').value = new Date().toISOString().split('T')[0];
+            currentDailyMealCard = null;
+            isEdit = false;
+            ['breakfast', 'lunch', 'dinner'].forEach(mealType => renderMealList(mealType));
+            updateTotalCaloriesEdit();
+            document.getElementById('editDailyMealModal').style.display = 'flex';
         });
-
-        // Reset total calories
-        document.querySelector('.total-calories-edit .total-calorie-value').textContent = '0';
-
-        // Show the edit modal
-        elements.editDailyMealModal.style.display = 'flex';
-    });
+    }
 
     // Initialize icon selectors when the page loads
     initializeIconSelectors();
@@ -715,4 +737,102 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize page on load
     initializePage();
+
+    function showOrHideNoDailyMealMessage() {
+        const dailyMealContent = document.querySelector('.daily-meal-content');
+        const noMsg = dailyMealContent.querySelector('.no-daily-meal-message');
+        const hasCard = dailyMealContent.querySelector('.daily-meal-card');
+        if (noMsg) {
+            noMsg.style.display = hasCard ? 'none' : 'block';
+        }
+    }
+
+    function showOrHideNoMyMenuMessage() {
+        const menuContainer = document.querySelector('.menu-container');
+        const noMsg = menuContainer.querySelector('.no-my-menu-message');
+        const hasCard = menuContainer.querySelector('.menu-card');
+        if (noMsg) {
+            noMsg.style.display = hasCard ? 'none' : 'block';
+        }
+    }
+
+    // เรียกใช้หลังเพิ่ม/ลบ/เรียง .menu-card ทุกครั้ง เช่นในฟังก์ชัน sortMenuCards, หลังลบ/เพิ่มเมนู
+    const menuGrid = document.querySelector('.menu-grid');
+    if (menuGrid) {
+        const observer = new MutationObserver(showOrHideNoMyMenuMessage);
+        observer.observe(menuGrid, { childList: true, subtree: false });
+        // เรียกครั้งแรกหลังโหลดหน้า
+        showOrHideNoMyMenuMessage();
+    }
+
+    // --- Popup รายละเอียดเมนู My Menu ---
+    // ตัวอย่าง mock ข้อมูลวัตถุดิบ (ควรดึงจากฐานข้อมูลจริง)
+    const menuData = {
+        "ข้าวผัดกุ้ง": {
+            ingredients: [
+                { name: "ข้าวสวย", calories: 200 },
+                { name: "กุ้ง", calories: 120 },
+                { name: "น้ำมัน", calories: 50 },
+                { name: "ไข่", calories: 80 }
+            ]
+        },
+        "ข้าวไข่กุ้ง": {
+            ingredients: [
+                { name: "ข้าวสวย", calories: 200 },
+                { name: "ไข่", calories: 80 },
+                { name: "กุ้ง", calories: 120 },
+                { name: "น้ำมัน", calories: 50 }
+            ]
+        }
+        // เพิ่มเมนูอื่นๆ ตามต้องการ
+    };
+
+    function setupViewDetailsButtons() {
+        document.querySelectorAll('.view-details-btn').forEach(btn => {
+            btn.onclick = function() {
+                const card = btn.closest('.menu-card');
+                const menuName = card.querySelector('.menu-name').textContent.trim();
+                const menuDate = card.querySelector('.menu-date')?.textContent.replace('Created:', '').trim() || card.getAttribute('data-created') || '';
+                const modal = document.getElementById('menuDetailModal');
+                const nameElem = modal.querySelector('.detail-menu-name');
+                const dateElem = modal.querySelector('.detail-menu-date');
+                const ingElem = modal.querySelector('.detail-ingredients');
+                const totalElem = modal.querySelector('.detail-total-calories');
+                nameElem.textContent = menuName;
+                dateElem.textContent = menuDate ? `สร้างเมื่อ: ${menuDate}` : '';
+                // ดึงวัตถุดิบจากข้อมูลจริง
+                const menu = menuData[menuName];
+                if (menu && menu.ingredients.length > 0) {
+                    let total = 0;
+                    ingElem.innerHTML = menu.ingredients.map(ing => {
+                        total += ing.calories;
+                        return `<div class="detail-ingredient-row"><span>${ing.name}</span><span>${ing.calories} kcal</span></div>`;
+                    }).join('');
+                    totalElem.textContent = `แคลอรี่รวม: ${total} kcal`;
+                } else {
+                    ingElem.innerHTML = '<div style="color:#888;">ไม่มีข้อมูลวัตถุดิบ</div>';
+                    totalElem.textContent = '';
+                }
+                modal.style.display = 'flex';
+            };
+        });
+    }
+
+    // ปุ่มปิด popup
+    const closeDetailBtn = document.querySelector('.close-detail-modal');
+    if (closeDetailBtn) {
+        closeDetailBtn.onclick = function() {
+            document.getElementById('menuDetailModal').style.display = 'none';
+        };
+    }
+    // ปิดเมื่อคลิกนอก modal
+    const menuDetailModal = document.getElementById('menuDetailModal');
+    if (menuDetailModal) {
+        menuDetailModal.onclick = function(e) {
+            if (e.target === this) this.style.display = 'none';
+        };
+    }
+
+    // เรียก setupViewDetailsButtons() หลังโหลดหน้าและหลังเพิ่ม/ลบเมนู
+    setupViewDetailsButtons();
 });
