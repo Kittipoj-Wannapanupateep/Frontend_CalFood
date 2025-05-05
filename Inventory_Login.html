@@ -46,21 +46,21 @@
                     <div class="category-item">
                         <div class="category-header">
                             <img src="https://cdn-icons-png.flaticon.com/512/18907/18907118.png" alt="My Menu" class="category-icon">
-                            <span>My Menu</span>
+                            <span>เมนูอาหารของฉัน</span>
                         </div>
                     </div>
                 
                     <div class="category-item">
                         <div class="category-header">
                             <img src="   https://cdn-icons-png.flaticon.com/512/4257/4257212.png " alt="Daily Meal" class="category-icon">
-                            <span>Daily Meal</span>
+                            <span>มื้ออาหารของฉัน</span>
                         </div>
                     </div>
 
                     <div class="category-item">
                         <div class="category-header">
                             <img src="https://cdn-icons-png.flaticon.com/512/3023/3023682.png" alt="My Healthy" class="category-icon">
-                            <span>My Healthy</span>
+                            <span>สุขภาพของฉัน</span>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
             
                     <div class="search-bar">
                         <img src="https://cdn-icons-png.flaticon.com/512/711/711319.png" alt="ค้นหา" class="search-icon">
-                        <input type="text" placeholder="ค้นหา">
+                        <input type="text" placeholder="ค้นหาชื่อเมนูอาหาร">
                     </div>
                 </div>
             </div>
@@ -87,25 +87,25 @@
                 <a href="Design_Login.html">
                 <button class="add-menu-btn">
                     <img src="https://cdn-icons-png.flaticon.com/512/4315/4315609.png" alt="Add">
-                    <span>เพิ่มเมนู</span>
+                    <span>เพิ่มเมนูอาหาร</span>
                 </button>
                 </a>
             </div>
             <div class="add-daily-meal-container">
                 <button class="add-daily-meal-btn">
                     <img src="https://cdn-icons-png.flaticon.com/512/4315/4315609.png" alt="Add">
-                    <span>เพิ่มเมนูต่อวัน</span>
+                    <span>เพิ่มมื้ออาหาร</span>
                 </button>
             </div>
             <div class="scrollable-content">
                 <div class="menu-container">
-                    <div class="no-my-menu-message" style="display:none; text-align:center; color:#888; font-size:1.1rem; margin: 32px 0;">ขณะนี้ยังไม่มีเมนูที่บันทึกไว้</div>
+                    <div class="no-my-menu-message">ขณะนี้ยังไม่มีเมนูที่บันทึกไว้</div>
                     <div class="menu-grid">
                         <div class="menu-card" data-created="2024-03-21">
                             <div class="menu-card-header">
                                 <div class="menu-info">
                                     <h3 class="menu-name">ข้าวผัดกุ้ง</h3>
-                                    <p class="menu-date">Created: 2024-03-21</p>
+                                    <p class="menu-date">2024-03-21</p>
                                 </div>
                                 <button class="delete-menu-btn">
                                     <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
@@ -123,7 +123,7 @@
                             <div class="menu-card-header">
                                 <div class="menu-info">
                                     <h3 class="menu-name">ข้าวไข่กุ้ง</h3>
-                                    <p class="menu-date">Created: 2024-04-23</p>
+                                    <p class="menu-date"> 2024-04-23</p>
                                 </div>
                                 <button class="delete-menu-btn">
                                     <img src="https://cdn-icons-png.flaticon.com/512/3096/3096673.png" alt="Delete">
@@ -142,7 +142,7 @@
             </div>
 
             <div class="daily-meal-content">
-                <div class="no-daily-meal-message" style="display:none; text-align:center; color:#888; font-size:1.1rem; margin: 32px 0;">ขณะนี้ยังไม่มีรายการเมนูต่อวัน กรุณาเพิ่มเมนู</div>
+                <div class="no-daily-meal-message">ขณะนี้ยังไม่มีรายการมื้ออาหาร</div>
             </div>
 
             <div class="healthy-content">
@@ -249,7 +249,7 @@
     <div id="editDailyMealModal" class="modal">
         <div class="modal-content edit-modal">
             <div class="modal-header">
-                <h2>แก้ไขมื้ออาหาร</h2>
+                <h2>แก้ไขมื้ออาหารของฉัน</h2>
             </div>
             <div class="modal-body">
                 <div class="date-edit">
@@ -310,7 +310,7 @@
     <!-- Select Menu Modal -->
     <div id="selectMenuModal" class="modal">
         <div class="modal-content select-menu-modal">
-            <h2>เลือกเมนูอาหาร</h2>
+            <h2>เลือกเมนูอาหารที่บันทึกไว้</h2>
             <div class="menu-list">
                 <!-- Menu items will be dynamically added here -->
             </div>
@@ -323,11 +323,11 @@
 
     <div id="menuDetailModal" class="modal">
         <div class="modal-content menu-detail-modal">
-            <button class="close-detail-modal" style="position:absolute;top:16px;right:16px;font-size:2rem;background:none;border:none;cursor:pointer;line-height:1;">&times;</button>
-            <h2 class="detail-menu-name" style="margin-bottom:0.5rem;"></h2>
-            <div class="detail-menu-date" style="color:#888;font-size:0.98rem;margin-bottom:1rem;"></div>
+            <button class="close-detail-modal">&times;</button>
+            <h2 class="detail-menu-name"></h2>
+            <div class="detail-menu-date"></div>
             <div class="detail-ingredients"></div>
-            <div class="detail-total-calories" style="margin-top:20px;font-weight:bold;color:#388e3c;font-size:1.15rem;"></div>
+            <div class="detail-total-calories"></div>
         </div>
     </div>
 

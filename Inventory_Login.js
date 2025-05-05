@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Button categories for each menu type
     const buttonCategories = {
-        'My Menu': [],
-        'Daily Meal': [],
-        'My Healthy': []
+        'เมนูอาหารของฉัน': [],
+        'มื้ออาหารของฉัน': [],
+        'สุขภาพของฉัน': []
     };
 
     // Menu header functionality
@@ -107,6 +107,147 @@ document.addEventListener("DOMContentLoaded", function () {
         elements.menuHeaders.forEach(header => header.classList.remove('active'));
     }
 
+    // Show or hide search bar based on menu cards and search results
+    function showOrHideSearchBar() {
+        const searchBar = document.querySelector('.search-bar');
+        const menuGrid = document.querySelector('.menu-grid');
+        const searchInput = searchBar?.querySelector('input');
+        const searchText = searchInput?.value?.toLowerCase() || '';
+        const noResultMessage = document.querySelector('.no-search-result-message');
+        
+        // ถ้าไม่มีเมนูเลย ให้ซ่อน search bar
+        if (!menuGrid || !menuGrid.querySelector('.menu-card')) {
+            if (searchBar) searchBar.style.display = 'none';
+            return;
+        }
+
+        // ถ้ามีเมนู ให้แสดง search bar
+        if (searchBar) searchBar.style.display = 'block';
+
+        // ถ้ามีการค้นหา ให้ตรวจสอบและแสดงเฉพาะเมนูที่ตรงกับคำค้นหา
+        if (searchText) {
+            const menuCards = menuGrid.querySelectorAll('.menu-card');
+            let hasMatch = false;
+            
+            menuCards.forEach(card => {
+                const menuName = card.querySelector('.menu-name')?.textContent?.toLowerCase() || '';
+                if (menuName.includes(searchText)) {
+                    card.style.display = 'block';
+                    hasMatch = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // ถ้าไม่พบเมนูที่ตรงกับคำค้นหา ให้ซ่อน menu grid และแสดงข้อความ
+            if (menuGrid) {
+                menuGrid.style.display = hasMatch ? 'flex' : 'none';
+                if (!hasMatch) {
+                    if (!noResultMessage) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'no-search-result-message';
+                        messageDiv.style.textAlign = 'center';
+                        messageDiv.style.color = '#888';
+                        messageDiv.style.fontSize = '1.1rem';
+                        messageDiv.style.margin = '32px 0';
+                        messageDiv.textContent = 'ไม่มีชื่อเมนูที่บันทึกไว้';
+                        menuGrid.parentNode.insertBefore(messageDiv, menuGrid.nextSibling);
+                    } else {
+                        noResultMessage.style.display = 'block';
+                    }
+                } else if (noResultMessage) {
+                    noResultMessage.style.display = 'none';
+                }
+            }
+        } else {
+            // ถ้าไม่มีการค้นหา ให้แสดง menu grid ทั้งหมดและซ่อนข้อความ
+            if (menuGrid) {
+                menuGrid.style.display = 'flex';
+                menuGrid.querySelectorAll('.menu-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+                if (noResultMessage) {
+                    noResultMessage.style.display = 'none';
+                }
+            }
+        }
+    }
+
+    // Show or hide daily meal search bar and handle search
+    function showOrHideDailyMealSearchBar() {
+        const searchBar = document.querySelector('.search-bar');
+        const dailyMealContent = document.querySelector('.daily-meal-content');
+        const searchInput = searchBar?.querySelector('input');
+        const searchText = searchInput?.value?.toLowerCase() || '';
+        let noResultMessage = document.querySelector('.no-dailymeal-search-result-message');
+        
+        // ถ้าไม่มีรายการ Daily Meal เลย ให้ซ่อน search bar
+        if (!dailyMealContent || !dailyMealContent.querySelector('.daily-meal-card')) {
+            if (searchBar) searchBar.style.display = 'none';
+            if (noResultMessage) noResultMessage.style.display = 'none';
+            return;
+        }
+
+        // ถ้ามีรายการ Daily Meal ให้แสดง search bar
+        if (searchBar) searchBar.style.display = 'block';
+
+        // ถ้ามีการค้นหา ให้ตรวจสอบและแสดงเฉพาะ Daily Meal ที่มีเมนูตรงกับคำค้นหา
+        if (searchText) {
+            const dailyMealCards = dailyMealContent.querySelectorAll('.daily-meal-card');
+            let hasMatch = false;
+            
+            dailyMealCards.forEach(card => {
+                const mealSections = card.querySelectorAll('.meal-section');
+                let cardHasMatch = false;
+                
+                mealSections.forEach(section => {
+                    const mealItems = section.querySelectorAll('.meal-list-item');
+                    mealItems.forEach(item => {
+                        const menuName = item.querySelector('.meal-name')?.textContent?.toLowerCase() || '';
+                        if (menuName.includes(searchText)) {
+                            cardHasMatch = true;
+                            hasMatch = true;
+                        }
+                    });
+                });
+                // แสดง/ซ่อน Daily Meal card ตามผลการค้นหา
+                card.style.display = cardHasMatch ? 'block' : 'none';
+            });
+
+            // ถ้าไม่พบเมนูที่ตรงกับคำค้นหาเลย ให้ซ่อน daily meal content และแสดงข้อความ
+            if (dailyMealContent) {
+                dailyMealContent.style.display = hasMatch ? 'block' : 'none';
+                if (!hasMatch) {
+                    if (!noResultMessage) {
+                        noResultMessage = document.createElement('div');
+                        noResultMessage.className = 'no-dailymeal-search-result-message';
+                        noResultMessage.style.textAlign = 'center';
+                        noResultMessage.style.color = '#888';
+                        noResultMessage.style.fontSize = '1.1rem';
+                        noResultMessage.style.margin = '32px 0';
+                        noResultMessage.textContent = 'ไม่มีชื่อเมนูที่บันทึกไว้';
+                        dailyMealContent.parentNode.insertBefore(noResultMessage, dailyMealContent.nextSibling);
+                    } else {
+                        noResultMessage.style.display = 'block';
+                    }
+                } else if (noResultMessage) {
+                    noResultMessage.style.display = 'none';
+                }
+            }
+        } else {
+            // ถ้าไม่มีการค้นหา ให้แสดง daily meal content ทั้งหมดและซ่อนข้อความ
+            if (dailyMealContent) {
+                dailyMealContent.style.display = 'block';
+                dailyMealContent.querySelectorAll('.daily-meal-card').forEach(card => {
+                    card.style.display = 'block';
+                });
+                if (noResultMessage) {
+                    noResultMessage.style.display = 'none';
+                }
+            }
+        }
+    }
+
     // Update displayed menu type
     function updateDisplayedMenuType(menuType) {
         // Reset all classes and displays
@@ -117,20 +258,21 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('.search-bar').style.display = 'block';
 
         // Set specific display based on menu type
-        if (menuType === 'My Menu') {
+        if (menuType === 'เมนูอาหารของฉัน') {
             elements.rightContent.classList.add('my-menu-active');
             document.querySelector('.menu-container').style.display = 'flex';
             sortMenuCards();
-        } else if (menuType === 'Daily Meal') {
+            showOrHideSearchBar();
+        } else if (menuType === 'มื้ออาหารของฉัน') {
             elements.rightContent.classList.add('daily-meal-active');
             document.querySelector('.daily-meal-content').style.display = 'block';
             sortDailyMealCards();
-        } else if (menuType === 'My Healthy') {
+            showOrHideDailyMealSearchBar();
+        } else if (menuType === 'สุขภาพของฉัน') {
             elements.rightContent.classList.add('my-healthy-active');
             document.querySelector('.healthy-content').style.display = 'block';
             document.querySelector('.search-bar').style.display = 'none';
         }
-        
         elements.sectionTitle.textContent = menuType;
     }
 
@@ -185,6 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         menuCards.forEach(card => menuGrid.appendChild(card));
         showOrHideNoMyMenuMessage();
+        showOrHideSearchBar();
     }
 
     // Sort daily meal cards by date
@@ -499,6 +642,8 @@ document.addEventListener("DOMContentLoaded", function () {
             currentDailyMealCard = null;
             isEdit = false;
             setupEditButtons();
+            // เรียกให้แสดงช่อง search ทันทีหลังเพิ่มเมนูต่อวัน
+            showOrHideDailyMealSearchBar();
         };
     }
 
@@ -516,6 +661,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Confirm delete
     elements.confirmDeleteBtn.addEventListener('click', () => {
         if (menuToDelete) {
+            // ลบเฉพาะเมนูอาหารของฉัน
             menuToDelete.remove();
             elements.deleteConfirmModal.style.display = 'none';
             // Update success modal content for delete
@@ -523,8 +669,11 @@ document.addEventListener("DOMContentLoaded", function () {
             successModal.querySelector('h2').textContent = 'ลบเมนูเสร็จสิ้น';
             successModal.style.display = 'flex';
             menuToDelete = null;
-            showOrHideNoDailyMealMessage();
+            showOrHideNoMyMenuMessage();
+            showOrHideSearchBar();
+            // ไม่ต้องเรียก showOrHideNoDailyMealMessage() หรือ showOrHideDailyMealSearchBar() ที่นี่
         } else if (currentDailyMealCard) {
+            // ลบเฉพาะมื้ออาหารของฉัน
             currentDailyMealCard.remove();
             elements.deleteConfirmModal.style.display = 'none';
             // Update success modal content for delete
@@ -533,6 +682,7 @@ document.addEventListener("DOMContentLoaded", function () {
             successModal.style.display = 'flex';
             currentDailyMealCard = null;
             showOrHideNoDailyMealMessage();
+            showOrHideDailyMealSearchBar();
         }
     });
 
@@ -603,6 +753,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentDailyMealCard = button.closest('.daily-meal-card');
                 isEdit = true;
                 populateEditModal(currentDailyMealCard);
+                document.querySelector('#editDailyMealModal .modal-header h2').textContent = 'แก้ไขมื้ออาหาร';
                 document.getElementById('editDailyMealModal').style.display = 'flex';
             };
         });
@@ -651,6 +802,17 @@ document.addEventListener("DOMContentLoaded", function () {
         menuList.innerHTML = '';
         // Get all menu cards from My Menu
         const menuCards = document.querySelectorAll('.menu-card');
+        if (menuCards.length === 0) {
+            // ถ้าไม่มีเมนูเลย ให้แสดงข้อความ
+            const emptyMsg = document.createElement('div');
+            emptyMsg.style.textAlign = 'center';
+            emptyMsg.style.color = '#888';
+            emptyMsg.style.fontSize = '1.1rem';
+            emptyMsg.style.margin = '32px 0';
+            emptyMsg.textContent = 'ขณะนี้ไม่มีเมนูอาหารที่บันทึกไว้';
+            menuList.appendChild(emptyMsg);
+            return;
+        }
         menuCards.forEach(card => {
             const menuName = card.querySelector('.menu-name')?.textContent || '';
             const calorieValue = card.querySelector('.calorie-value')?.textContent || '';
@@ -707,6 +869,7 @@ document.addEventListener("DOMContentLoaded", function () {
             isEdit = false;
             ['breakfast', 'lunch', 'dinner'].forEach(mealType => renderMealList(mealType));
             updateTotalCaloriesEdit();
+            document.querySelector('#editDailyMealModal .modal-header h2').textContent = 'เพิ่มมื้ออาหารของฉัน';
             document.getElementById('editDailyMealModal').style.display = 'flex';
         });
     }
@@ -727,7 +890,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize page
     function initializePage() {
         const myMenuHeader = Array.from(elements.menuHeaders).find(header => 
-            header.querySelector('span').textContent === 'My Menu'
+            header.querySelector('span').textContent === 'เมนูอาหารของฉัน'
         );
         if (myMenuHeader) {
             myMenuHeader.click();
@@ -759,10 +922,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // เรียกใช้หลังเพิ่ม/ลบ/เรียง .menu-card ทุกครั้ง เช่นในฟังก์ชัน sortMenuCards, หลังลบ/เพิ่มเมนู
     const menuGrid = document.querySelector('.menu-grid');
     if (menuGrid) {
-        const observer = new MutationObserver(showOrHideNoMyMenuMessage);
+        const observer = new MutationObserver(function() {
+            showOrHideNoMyMenuMessage();
+            showOrHideSearchBar();
+        });
         observer.observe(menuGrid, { childList: true, subtree: false });
         // เรียกครั้งแรกหลังโหลดหน้า
         showOrHideNoMyMenuMessage();
+        showOrHideSearchBar();
     }
 
     // --- Popup รายละเอียดเมนู My Menu ---
@@ -835,4 +1002,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // เรียก setupViewDetailsButtons() หลังโหลดหน้าและหลังเพิ่ม/ลบเมนู
     setupViewDetailsButtons();
+
+    // Add search input event listeners
+    const searchInput = document.querySelector('.search-bar input');
+    if (searchInput) {
+        // Remove previous event listener
+        searchInput.removeEventListener('input', showOrHideSearchBar);
+        
+        // Add new event listeners
+        searchInput.addEventListener('input', function() {
+            if (document.querySelector('.right-content.my-menu-active')) {
+                showOrHideSearchBar();
+            } else if (document.querySelector('.right-content.daily-meal-active')) {
+                showOrHideDailyMealSearchBar();
+            }
+        });
+    }
 });

@@ -318,7 +318,7 @@
 .calorie-value {
     font-size: 24px;
     font-weight: 700;
-    color: #A5E135;
+    color: #388e3c;
 }
 
 .calorie-unit {
@@ -328,7 +328,7 @@
 
 .view-details-btn {
     padding: 8px 15px;
-    background-color: #A5E135;
+    background-color: #a8a8a8;
     color: white;
     border: none;
     border-radius: 5px;
@@ -338,7 +338,7 @@
 }
 
 .view-details-btn:hover {
-    background-color: #8bc31a;
+    background-color: #919191;
 }
 
 /* Hide menu cards when not in My Menu */
@@ -523,7 +523,7 @@
 .total-calories-edit .total-calorie-value {
     font-size: 24px;
     font-weight: 700;
-    color: #A5E135;
+    color: #388e3c;
 }
 
 .total-calories-edit .calorie-unit {
@@ -612,7 +612,7 @@
 }
 
 .menu-item.selected {
-    background-color: #A5E135;
+    background-color: #dedede;
     color: white;
 }
 
@@ -731,8 +731,8 @@
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background-color: #A5E135;
-    color: rgb(0, 0, 0);
+    background-color: #4CAF50;
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 6px;
     font-size: 15px;
@@ -742,7 +742,7 @@
 }
 
 .add-menu-btn:hover, .add-daily-meal-btn:hover {
-    background-color: #8bc31a;
+    background-color: rgb(73, 169, 78);
     transform: translateY(-1px);
 }
 
@@ -883,7 +883,7 @@
 .meal-calories .calorie-value {
     font-size: 20px;
     font-weight: 700;
-    color: #A5E135;
+    color: #000000;
 }
 
 .meal-calories .calorie-unit {
@@ -904,7 +904,7 @@
 .total-calories .total-calorie-value {
     font-size: 24px;
     font-weight: 700;
-    color: #A5E135;
+    color: #388e3c;
 }
 
 .total-calories .calorie-unit {
@@ -967,7 +967,7 @@
 .bmi-value .value {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #A5E135;
+    color: #4CAF50;
 }
 
 .bmi-value .unit {
@@ -982,7 +982,7 @@
 }
 
 .bmi-status .normal {
-    background-color: #A5E135;
+    background-color: #4CAF50;
     color: white;
 }
 
@@ -1066,7 +1066,6 @@
 
 .activity-btn.active {
     background-color: #A5E135;
-    color: white;
 }
 
 .activity-btn img {
@@ -1102,7 +1101,7 @@
 .range-item .value {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #A5E135;
+    color: #4CAF50;
 }
 
 .range-item .unit {
@@ -1395,8 +1394,44 @@
   transition: background 0.2s, color 0.2s;
 }
 .close-detail-modal:hover {
-  color: #fff;
+  color: #333;
   background: #d32f2f;
+}
+
+.no-my-menu-message,
+.no-daily-meal-message,
+.no-search-result-message,
+.no-dailymeal-search-result-message {
+    display: none;
+    text-align: center;
+    color: #888;
+    font-size: 1.1rem;
+    margin: 32px 0;
+}
+
+#menuDetailModal .close-detail-modal {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 2rem !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+#menuDetailModal .detail-menu-name {
+    margin-bottom: 0.5rem;
+}
+#menuDetailModal .detail-menu-date {
+    color: #888;
+    font-size: 0.98rem;
+    margin-bottom: 1rem;
+}
+#menuDetailModal .detail-total-calories {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #388e3c;
+    font-size: 1.15rem;
 }
 
   
